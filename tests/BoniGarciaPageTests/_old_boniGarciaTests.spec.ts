@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { fixture as test } from "./boniGarciaFixture.spec";
 import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
 import WebForm from "../../src/POM/BoniGarciaTestPage/pages/WebFormPage";
 import NavigationPage from "../../src/POM/BoniGarciaTestPage/pages/NavigationPage";
@@ -21,17 +21,17 @@ import {
 import { WebStoragePage } from "../../src/POM/BoniGarciaTestPage/pages/WebStoragePage";
 import { GeolocationPage } from "../../src/POM/BoniGarciaTestPage/pages/GeolocationPage";
 
-test("Main page test - verification of visibility of elements", async ({
-  page,
-}) => {
-  const mainPage = new MainPage(page);
+test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
+});
+
+test("Main page test - verification of visibility of elements", async ({
+  mainPage,
+}) => {
   await mainPage.verifyMainPageElements();
 });
 
-test("Web form test", async ({ page }) => {
-  const mainPage = new MainPage(page);
-  await mainPage.openMainPage();
+test("Web form test", async ({ mainPage, page }) => {
   await mainPage.openPage("Web form");
   const webForm = new WebForm(page);
   await webForm.verifyWebFormPageElements();
@@ -209,8 +209,13 @@ test("Geolocation page test", async ({ page }) => {
   const geolocationPage = new GeolocationPage(page);
   await geolocationPage.getCoordinates();
   await geolocationPage.verifyCoords();
-  let coords = await geolocationPage.changeGeolocation({longitude: 22.22, latitude: 12.34});
+  let coords = await geolocationPage.changeGeolocation({
+    longitude: 22.22,
+    latitude: 12.34,
+  });
   await geolocationPage.getCoordinates();
-    await geolocationPage.verifyCoords(coords);
-
+  await geolocationPage.verifyCoords(coords);
 });
+function async(arg0: { MainPage: typeof MainPage }): any {
+  throw new Error("Function not implemented.");
+}
