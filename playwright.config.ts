@@ -32,7 +32,13 @@ export default defineConfig({
     trace: "on-first-retry",
     launchOptions: {
       slowMo: 300,
+      args: [
+        "--use-fake-device-for-media-stream", // fałszywa kamera/mikrofon
+        "--use-fake-ui-for-media-stream", // auto-akceptuje popup z prośbą o dostęp
+        "--allow-file-access-from-files", // dostęp do lokalnych plików
+      ],
     },
+    locale: 'es-ES',
   },
 
   expect: {
