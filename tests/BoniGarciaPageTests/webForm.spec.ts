@@ -9,7 +9,18 @@ test.beforeEach(async ({ mainPage }) => {
 test("Web form test", async ({ mainPage, page }) => {
   await mainPage.openPage("Web form");
   const webForm = new WebForm(page);
-  await webForm.verifyWebFormPageElements();
-  await webForm.fillWebForm({ range: 0 });
+  //await webForm.verifyWebFormPageElements();
+  await webForm.fillTextInput();
+  await webForm.fillPassword();
+  await webForm.fillTextArea();
+  await webForm.selectFromDropdown('Two');
+  await webForm.selectFromDatalist('Chicago');
+  await webForm.uploadFile();
+  await webForm.pickCheckbox(1, false);
+  await webForm.pickCheckbox(2, true);
+  await webForm.pickRadio(2);
+  await webForm.pickColor("#2e30c4");
+  await webForm.pickDate();
+  await webForm.pickRange(2);
   await webForm.sendForm();
 });

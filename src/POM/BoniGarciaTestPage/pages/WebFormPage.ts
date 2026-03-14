@@ -4,30 +4,30 @@ import path from "path";
 import { Actions } from "./Actions/Actions";
 
 export default class WebForm {
-  readonly actions: Actions;
-  readonly page: Page;
-  readonly mainHeader: Locator;
-  readonly logoImg: Locator;
-  readonly pageTitle: Locator;
-  readonly container1: Locator;
-  readonly container2: Locator;
-  readonly container3: Locator;
-  readonly textInput: Locator;
-  readonly passwordInput: Locator;
-  readonly textArea: Locator;
-  readonly disabledInput: Locator;
-  readonly readonlyInput: Locator;
-  readonly dropdownSelect: Locator;
-  readonly dropdownDatalist: Locator;
-  readonly fileInput: Locator;
-  readonly checkedCheckbox: Locator;
-  readonly defaultCheckbox: Locator;
-  readonly checkedRadio: Locator;
-  readonly defaultRadio: Locator;
-  readonly colorPicker: Locator;
-  readonly datePicker: Locator;
-  readonly rangePicker: Locator;
-  readonly submitBtn: Locator;
+  private readonly actions: Actions;
+  private readonly mainHeader: Locator;
+  private readonly page: Page;
+  private readonly logoImg: Locator;
+  private readonly pageTitle: Locator;
+  private readonly container1: Locator;
+  private readonly container2: Locator;
+  private readonly container3: Locator;
+  private readonly textInput: Locator;
+  private readonly passwordInput: Locator;
+  private readonly textArea: Locator;
+  private readonly disabledInput: Locator;
+  private readonly readonlyInput: Locator;
+  private readonly dropdownSelect: Locator;
+  private readonly dropdownDatalist: Locator;
+  private readonly fileInput: Locator;
+  private readonly checkedCheckbox: Locator;
+  private readonly defaultCheckbox: Locator;
+  private readonly checkedRadio: Locator;
+  private readonly defaultRadio: Locator;
+  private readonly colorPicker: Locator;
+  private readonly datePicker: Locator;
+  private readonly rangePicker: Locator;
+  private readonly submitBtn: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -39,8 +39,8 @@ export default class WebForm {
     this.container2 = page.locator("div.col-md-4.py-2").nth(1);
     this.container3 = page.locator("div.col-md-4.py-2").nth(2);
     this.textInput = page.getByRole("textbox", { name: "Text input" });
-    this.passwordInput = page.getByRole("textbox", { name: /password/i });
-    this.textArea = page.locator('[name="my-textarea"]');
+    this.passwordInput = page.getByRole("textbox", { name: "Password" });
+    this.textArea = page.getByRole('textbox', {name: "Textarea"});
     this.disabledInput = page.getByPlaceholder("Disabled input");
     this.readonlyInput = page.getByPlaceholder("Readonly input");
     this.dropdownSelect = page.getByLabel("Dropdown (select) Open this");
@@ -62,20 +62,19 @@ export default class WebForm {
     await expect(this.mainHeader).toBeVisible();
     await expect(this.logoImg).toBeVisible();
     await expect(this.pageTitle).toBeVisible();
-    await expect(this.container1).toMatchAriaSnapshot(
-      `- text: Text input
-- textbox 'Text input'
-- text: Password
-- textbox 'Password'
-- text: Textarea
-- textbox 'Textarea'
-- text: Disabled input
-- textbox 'Disabled input' [disabled]
-- text: Readonly input
-- textbox 'Readonly input'
-- link 'Return to index':
-  - /url: ./index.html`,
-    );
+    await expect(this.container1).toMatchAriaSnapshot(`
+    - text: Text input
+    - textbox 'Text input'
+    - text: Password
+    - textbox 'Password'
+    - text: Textarea
+    - textbox 'Textarea'
+    - text: Disabled input
+    - textbox 'Disabled input' [disabled]
+    - text: Readonly input
+    - textbox 'Readonly input'
+    - link 'Return to index':
+    - /url: ./index.html`);
     await expect(this.container2).toMatchAriaSnapshot(`
 - text: Dropdown (select)
 - combobox 'Dropdown (select)':
@@ -129,7 +128,7 @@ export default class WebForm {
   }
 
   async selectFromDropdown(input?: string) {
-    await this.actions.sendTextToInput(this.dropdownSelect, input ?? "One");
+    await this.actions.selectOption(this.dropdownSelect, input ?? "One");
   }
 
   async selectFromDatalist(input?: string) {
@@ -139,88 +138,40 @@ export default class WebForm {
     );
   }
 
+  async uploadFile(filePath?: string) {
+    await this.actions.sendFile(
+      this.fileInput,
+      filePath ?? path.join(process.cwd(), "/resources/f-vat_2011.pdf"),
+    );
+  }
 
-  public async fillWebForm(options: {
-    dropdownData?: string;
-    filePath?: string;
-    cbToCheck?: number;
-    color?: string;
-    date?: string;
-    range?: number;
-  }): Promise<void> {
-    const { dropdownData, filePath, cbToCheck, color, date, range } = options;
-
-    const dropdownDataValue: string = dropdownData ?? "New York";
-    await this.fillInput(this.dropdownDatalist, dropdownDataValue);
-
-    const checkbox: number = cbToCheck ?? 1;
+  async pickCheckbox(checkbox: number, check: boolean) {
     if (checkbox == 1) {
-      await this.checkUncheck(this.checkedCheckbox);
+      await this.actions.checkUncheck(this.checkedCheckbox, check);
     } else {
-      await this.checkUncheck(this.defaultCheckbox);
-    }
-
-    this.checkUncheckRadio(this.checkedRadio, this.defaultRadio);
-
-    const filePathInput: string =
-      filePath ?? path.join(process.cwd(), "/resources/f-vat_2011.pdf");
-    await this.fileInput.setInputFiles(path.join(filePathInput));
-
-    const rangeInput: number = range ?? 1;
-    await this.rangeManipulator(rangeInput);
-
-    const colorInput: string = color ?? "#0aca0a";
-    await this.fillInput(this.colorPicker, colorInput);
-
-    const dateInput: string = date ?? "12/25/2026";
-    await this.fillInput(this.datePicker, dateInput);
-  }
-
-  private async fillInput(
-    element: Locator,
-    fill: string,
-    key?: boolean,
-  ): Promise<void> {
-    await expect(element).toBeVisible();
-    await element.pressSequentially(fill);
-    if (key) {
-      await element.press("Enter");
+      await this.actions.checkUncheck(this.defaultCheckbox, check);
     }
   }
 
-  private async checkUncheck(element: Locator): Promise<void> {
-    if (await element.isChecked()) {
-      await element.uncheck();
+  async pickRadio(radio: number) {
+    if (radio == 1) {
+      await this.actions.checkUncheckRadio(this.checkedRadio);
     } else {
-      await element.check();
-      await element.isChecked();
+      await this.actions.checkUncheckRadio(this.defaultRadio);
     }
   }
 
-  private async checkUncheckRadio(
-    element: Locator,
-    element2: Locator,
-  ): Promise<void> {
-    const radioRole = await element.getAttribute("role");
-    const isRadio = radioRole == "radio";
-    if (isRadio) {
-      if (await element.isChecked()) {
-        await this.checkUncheck(element2);
-      } else {
-        await this.checkUncheck(element);
-      }
-    }
+  async pickColor(color?: string) {
+    await this.actions.sendTextToInput(this.colorPicker, color ?? "#0aca0a");
   }
-  private async rangeManipulator(target: number): Promise<void> {
-    let current = Number(await this.rangePicker.inputValue());
-    while (current !== target) {
-      if (current < target) {
-        await this.rangePicker.press("ArrowRight");
-      } else {
-        await this.rangePicker.press("ArrowLeft");
-      }
-      current = Number(await this.rangePicker.inputValue());
-    }
+
+  async pickDate(date?: string) {
+    const dateInput: string = date ?? new Date(Date.now()).toISOString();
+    await this.actions.sendTextToInput(this.datePicker, dateInput);
+  }
+
+  async pickRange(range?: number) {
+    await this.actions.rangeManipulator(this.rangePicker, range ?? 1);
   }
 
   async sendForm() {
