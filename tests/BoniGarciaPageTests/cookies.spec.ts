@@ -6,8 +6,7 @@ test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
 });
 
-test("Cookies test", async ({ page }) => {
-  const mainPage = new MainPage(page);
+test("Cookies test", async ({ mainPage, page }) => {
   await mainPage.openMainPage();
   await mainPage.openPage("Cookies");
   const cookiesPage = new CookiesPage(page);

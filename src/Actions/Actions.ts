@@ -1,5 +1,4 @@
 import { expect, Locator, Page } from "@playwright/test";
-import path from "path";
 
 export class Actions {
   readonly page: Page;
@@ -8,13 +7,21 @@ export class Actions {
     this.page = page;
   }
 
-  async sendTextToInput(locator: Locator, text: string, enter?: boolean) {
+  async sendTextToInput(
+    locator: Locator,
+    input: string | number,
+    enter?: boolean,
+  ) {
     await expect(locator).toBeVisible();
-    await locator.fill(text);
+    if (typeof input === "string") {
+      await locator.fill(input);
+    } else if (typeof input === "number") {
+      await locator.fill(input.toString());
+    }
     if (enter) {
       await locator.press("Enter");
     }
-    expect(await locator.inputValue()).toBe(text);
+    expect(await locator.inputValue()).toBe(input.toString());
   }
 
   async selectOption(locator: Locator, text: string) {
@@ -24,7 +31,6 @@ export class Actions {
   }
 
   async sendFile(locator: Locator, file: string) {
-    //const filePath = path.join(__dirname, file);
     await locator.setInputFiles(file);
   }
 

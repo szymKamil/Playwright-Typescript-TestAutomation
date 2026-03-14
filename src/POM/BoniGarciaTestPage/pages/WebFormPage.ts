@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
 import path from "path";
-import { Actions } from "./Actions/Actions";
+import { Actions } from "../../../Actions/Actions";
 
 export default class WebForm {
   private readonly actions: Actions;

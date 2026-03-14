@@ -38,11 +38,11 @@ export default defineConfig({
         "--allow-file-access-from-files", // dostęp do lokalnych plików
       ],
     },
-    locale: 'es-ES',
+    locale: "es-ES",
   },
 
   expect: {
-    timeout: 30_000,
+    timeout: 60_000, /// testy kończa się maksymalnie po 60s
   },
 
   /* Configure projects for major browsers */
