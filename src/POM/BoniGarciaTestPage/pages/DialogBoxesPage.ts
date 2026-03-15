@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
+import { Logger } from "../../../_Tools/Logger";
 
 export enum AlertParameter {
   Accept = "accept",
@@ -56,41 +57,50 @@ export class DialgBoxesPage extends MainPage {
   }
 
   public async launchAlert() {
-    await this.alertRunner({
-      btn: this.page.locator("#my-alert"),
-      parameter: AlertParameter.Dismiss,
+    await Logger.logStep("Launching alert", async () => {
+      await this.alertRunner({
+        btn: this.page.locator("#my-alert"),
+        parameter: AlertParameter.Dismiss,
+      });
     });
   }
 
   public async launchConfirm(parameter: AlertParameter) {
-    await this.alertRunner({
-      btn: this.page.locator("#my-confirm"),
-      parameter: parameter,
+    await Logger.logStep("Lauching confirm", async () => {
+      await this.alertRunner({
+        btn: this.page.locator("#my-confirm"),
+        parameter: parameter,
+      });
+      if (parameter == "accept") {
+        await expect(this.confirmInfo).toHaveText("You chose: true");
+      } else {
+        await expect(this.confirmInfo).toHaveText("You chose: false");
+      }
     });
-    if ((parameter = "accept")) {
-      await expect(this.confirmInfo).toHaveText("You chose: true");
-    } else {
-      await expect(this.confirmInfo).toHaveText("You chose: false");
-    }
   }
+
   public async launchPromt(parameter: AlertParameter, input: string) {
-    await this.alertRunner({
-      btn: this.launchPromptBtn,
-      parameter: parameter,
-      input: input,
+    await Logger.logStep("Lauching prompt", async () => {
+      await this.alertRunner({
+        btn: this.launchPromptBtn,
+        parameter: parameter,
+        input: input,
+      });
+      await expect(this.promptInfo).toHaveText("You typed: " + input);
     });
-    await expect(this.promptInfo).toHaveText("You typed: " + input);
   }
   public async launchModal(parameter: AlertParameter) {
-    await this.launchModalBtn.click();
-    await expect(this.modal).toBeVisible();
-    await expect(this.modalBody).toHaveText("This is the modal body");
-    if (parameter == "accept") {
-      await this.modalSave.click();
-      await expect(this.modalInfo).toHaveText("You chose: Save changes");
-    } else {
-      await this.modalClose.click();
-      await expect(this.modalInfo).toHaveText("You chose: Close");
-    }
+    await Logger.logStep("Lauching modal", async () => {
+      await this.launchModalBtn.click();
+      await expect(this.modal).toBeVisible();
+      await expect(this.modalBody).toHaveText("This is the modal body");
+      if (parameter == "accept") {
+        await this.modalSave.click();
+        await expect(this.modalInfo).toHaveText("You chose: Save changes");
+      } else {
+        await this.modalClose.click();
+        await expect(this.modalInfo).toHaveText("You chose: Close");
+      }
+    });
   }
 }

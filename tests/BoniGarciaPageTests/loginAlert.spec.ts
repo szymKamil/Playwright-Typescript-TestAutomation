@@ -1,6 +1,5 @@
-import { log } from "node:console";
 import { LoginFormPage } from "../../src/POM/BoniGarciaTestPage/pages/LoginFormPage";
-import { fixture as test } from "./boniGarciaFixture.spec";
+import { fixture as test } from "./boniGarciaFixture.ts";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();

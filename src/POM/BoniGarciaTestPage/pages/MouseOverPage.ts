@@ -1,11 +1,12 @@
 import { Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
+import { Logger } from "../../../_Tools/Logger";
 
 export class MouseOverPage extends MainPage {
-  readonly compassImg: Locator;
-  readonly calsendarImg: Locator;
-  readonly awardImg: Locator;
-  readonly landscapeImg: Locator;
+  private readonly compassImg: Locator;
+  private readonly calsendarImg: Locator;
+  private readonly awardImg: Locator;
+  private readonly landscapeImg: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -17,6 +18,7 @@ export class MouseOverPage extends MainPage {
   }
 
   public async mouseOverImg(): Promise<void> {
+    await Logger.logStep(`Moving mouse over images`, async () => {
     const elements = [
       this.compassImg,
       this.calsendarImg,
@@ -32,5 +34,5 @@ export class MouseOverPage extends MainPage {
         .textContent();
       console.log(`Hovered element #${index+1}: ${imgCaption}`);
     }
-  }
+  })};
 }

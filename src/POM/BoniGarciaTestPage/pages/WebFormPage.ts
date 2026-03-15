@@ -1,7 +1,8 @@
 import { Page, Locator, expect } from "@playwright/test";
+import { Actions } from "../../../_Tools/Actions";
+import { Logger } from "../../../_Tools/Logger";
 import { faker } from "@faker-js/faker";
-import path from "path";
-import { Actions } from "../../../Actions/Actions";
+import path from "node:path";
 
 export default class WebForm {
   private readonly actions: Actions;
@@ -40,7 +41,7 @@ export default class WebForm {
     this.container3 = page.locator("div.col-md-4.py-2").nth(2);
     this.textInput = page.getByRole("textbox", { name: "Text input" });
     this.passwordInput = page.getByRole("textbox", { name: "Password" });
-    this.textArea = page.getByRole('textbox', {name: "Textarea"});
+    this.textArea = page.getByRole("textbox", { name: "Textarea" });
     this.disabledInput = page.getByPlaceholder("Disabled input");
     this.readonlyInput = page.getByPlaceholder("Readonly input");
     this.dropdownSelect = page.getByLabel("Dropdown (select) Open this");
@@ -59,10 +60,11 @@ export default class WebForm {
   }
 
   async verifyWebFormPageElements(): Promise<void> {
-    await expect(this.mainHeader).toBeVisible();
-    await expect(this.logoImg).toBeVisible();
-    await expect(this.pageTitle).toBeVisible();
-    await expect(this.container1).toMatchAriaSnapshot(`
+    await Logger.logStep("Verify web form page elements", async () => {
+      await expect(this.mainHeader).toBeVisible();
+      await expect(this.logoImg).toBeVisible();
+      await expect(this.pageTitle).toBeVisible();
+      await expect(this.container1).toMatchAriaSnapshot(`
     - text: Text input
     - textbox 'Text input'
     - text: Password
@@ -75,7 +77,7 @@ export default class WebForm {
     - textbox 'Readonly input'
     - link 'Return to index':
     - /url: ./index.html`);
-    await expect(this.container2).toMatchAriaSnapshot(`
+      await expect(this.container2).toMatchAriaSnapshot(`
 - text: Dropdown (select)
 - combobox 'Dropdown (select)':
   - option 'Open this select menu' [selected]
@@ -96,7 +98,7 @@ export default class WebForm {
 - text: Default radio
 - button 'Submit'
         `);
-    await expect(this.container3).toMatchAriaSnapshot(`
+      await expect(this.container3).toMatchAriaSnapshot(`
 - text: Color picker
 - textbox 'Color picker': '#563d7c'
 - text: Date picker
@@ -104,78 +106,103 @@ export default class WebForm {
 - text: Example range
 - slider 'Example range': '5'
         `);
+    });
   }
 
   async fillTextInput(input?: string) {
-    await this.actions.sendTextToInput(
-      this.textInput,
-      input ?? faker.string.sample({ min: 4, max: 10 }),
-    );
+    await Logger.logStep("Fill text input", async () => {
+      await this.actions.sendTextToInput(
+        this.textInput,
+        input ?? faker.string.sample({ min: 4, max: 10 }),
+      );
+    });
   }
 
   async fillPassword(input?: string) {
-    await this.actions.sendTextToInput(
-      this.passwordInput,
-      input ?? faker.string.sample({ min: 4, max: 10 }),
-    );
+    await Logger.logStep("Fill password", async () => {
+      await this.actions.sendTextToInput(
+        this.passwordInput,
+        input ?? faker.string.sample({ min: 4, max: 10 }),
+      );
+    });
   }
 
   async fillTextArea(input?: string) {
-    await this.actions.sendTextToInput(
-      this.textArea,
-      input ?? faker.string.sample({ min: 15, max: 25 }),
-    );
+    await Logger.logStep("Fill textarea", async () => {
+      await this.actions.sendTextToInput(
+        this.textArea,
+        input ?? faker.string.sample({ min: 15, max: 25 }),
+      );
+    });
   }
 
   async selectFromDropdown(input?: string) {
-    await this.actions.selectOption(this.dropdownSelect, input ?? "One");
+    await Logger.logStep("Select option from dropdown", async () => {
+      await this.actions.selectOption(this.dropdownSelect, input ?? "One");
+    });
   }
 
   async selectFromDatalist(input?: string) {
-    await this.actions.sendTextToInput(
-      this.dropdownDatalist,
-      input ?? "New York",
-    );
+    await Logger.logStep("Select value from datalist", async () => {
+      await this.actions.sendTextToInput(
+        this.dropdownDatalist,
+        input ?? "New York",
+      );
+    });
   }
 
   async uploadFile(filePath?: string) {
-    await this.actions.sendFile(
-      this.fileInput,
-      filePath ?? path.join(process.cwd(), "/resources/f-vat_2011.pdf"),
-    );
+    await Logger.logStep("Upload file", async () => {
+      await this.actions.sendFile(
+        this.fileInput,
+        filePath ?? path.join(process.cwd(), "/resources/f-vat_2011.pdf"),
+      );
+    });
   }
 
   async pickCheckbox(checkbox: number, check: boolean) {
-    if (checkbox == 1) {
-      await this.actions.checkUncheck(this.checkedCheckbox, check);
-    } else {
-      await this.actions.checkUncheck(this.defaultCheckbox, check);
-    }
+    await Logger.logStep(`Pick checkbox #${checkbox} -> ${check}`, async () => {
+      if (checkbox == 1) {
+        await this.actions.checkUncheck(this.checkedCheckbox, check);
+      } else {
+        await this.actions.checkUncheck(this.defaultCheckbox, check);
+      }
+    });
   }
 
   async pickRadio(radio: number) {
-    if (radio == 1) {
-      await this.actions.checkUncheckRadio(this.checkedRadio);
-    } else {
-      await this.actions.checkUncheckRadio(this.defaultRadio);
-    }
+    await Logger.logStep(`Pick radio #${radio}`, async () => {
+      if (radio == 1) {
+        await this.actions.checkUncheckRadio(this.checkedRadio);
+      } else {
+        await this.actions.checkUncheckRadio(this.defaultRadio);
+      }
+    });
   }
 
   async pickColor(color?: string) {
-    await this.actions.sendTextToInput(this.colorPicker, color ?? "#0aca0a");
+    await Logger.logStep("Pick color", async () => {
+      await this.actions.sendTextToInput(this.colorPicker, color ?? "#0aca0a");
+    });
   }
 
   async pickDate(date?: string) {
-    const dateInput: string = date ?? new Date(Date.now()).toISOString();
-    await this.actions.sendTextToInput(this.datePicker, dateInput);
+    await Logger.logStep("Pick date", async () => {
+      const dateInput: string = date ?? new Date(Date.now()).toISOString();
+      await this.actions.sendTextToInput(this.datePicker, dateInput);
+    });
   }
 
   async pickRange(range?: number) {
-    await this.actions.rangeManipulator(this.rangePicker, range ?? 1);
+    await Logger.logStep("Pick range", async () => {
+      await this.actions.rangeManipulator(this.rangePicker, range ?? 1);
+    });
   }
 
   async sendForm() {
-    await this.submitBtn.click();
-    await expect(this.page.getByText("Form submitted")).toBeVisible();
+    await Logger.logStep("Submit web form", async () => {
+      await this.submitBtn.click();
+      await expect(this.page.getByText("Form submitted")).toBeVisible();
+    });
   }
 }

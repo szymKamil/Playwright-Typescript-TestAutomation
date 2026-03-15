@@ -1,5 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.spec";
-import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
+import { fixture as test } from "./boniGarciaFixture.ts";
 import { GeolocationPage } from "../../src/POM/BoniGarciaTestPage/pages/GeolocationPage";
 
 test.use({
@@ -11,8 +10,7 @@ test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
 });
 
-test("Geolocation page test", async ({ page }) => {
-  const mainPage = new MainPage(page);
+test("Geolocation page test", async ({ mainPage, page }) => {
   await mainPage.openMainPage();
   await mainPage.openPage("Geolocation");
   const geolocationPage = new GeolocationPage(page);

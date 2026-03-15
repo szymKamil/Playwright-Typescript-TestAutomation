@@ -2,8 +2,8 @@ import { expect, Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
 
 export class IFramePage extends MainPage {
-  readonly iFrameElement: Locator;
-  readonly paragraphs: Locator;
+  private readonly iFrameElement: Locator;
+  private readonly paragraphs: Locator;
 
   constructor(page: Page) {
     super(page);

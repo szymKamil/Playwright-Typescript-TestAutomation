@@ -1,8 +1,9 @@
 import { Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
+import { Logger } from "../../../_Tools/Logger";
 
 export class InfiniteScrollPage extends MainPage {
-  readonly paragraphs: Locator;
+  private readonly paragraphs: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -10,16 +11,19 @@ export class InfiniteScrollPage extends MainPage {
   }
 
   public async scrollXtimes(times: number): Promise<void> {
-    let lastParagraphCount = await this.paragraphs.count();
+    await Logger.logStep("Scrolling page", async () => {
+      let lastParagraphCount = await this.paragraphs.count();
 
-    for (let i = 0; i < times; i++) {
-      await this.paragraphs
-        .nth(lastParagraphCount - 1)
-        .scrollIntoViewIfNeeded();
-      lastParagraphCount = await this.paragraphs.count();
-      console.log(
-        `Scrolled ${i + 1} times, current number of paragraphs: ${lastParagraphCount}`,
-      );
-    }
+      for (let i = 0; i < times; i++) {
+        await this.paragraphs
+          .nth(lastParagraphCount - 1)
+          .scrollIntoViewIfNeeded();
+        lastParagraphCount = await this.paragraphs.count();
+        console.log(
+          Logger.getTimestamp() +
+            `Scrolled ${i + 1} times, current number of paragraphs: ${lastParagraphCount}`,
+        );
+      }
+    });
   }
 }

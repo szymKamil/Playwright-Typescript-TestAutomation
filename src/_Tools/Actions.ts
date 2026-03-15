@@ -24,7 +24,7 @@ export class Actions {
     expect(await locator.inputValue()).toBe(input.toString());
   }
 
-  async selectOption(locator: Locator, text: string) {
+  async selectOption(locator: Locator, text: string): Promise<void> {
     await expect(locator).toBeVisible();
     await locator.selectOption(text);
     await expect(locator).toHaveValue(await locator.inputValue());

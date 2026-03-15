@@ -1,13 +1,11 @@
-import { fixture as test } from "./boniGarciaFixture.spec";
-import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
+import { fixture as test } from "./boniGarciaFixture.ts";
 import { DrawInCanvas } from "../../src/POM/BoniGarciaTestPage/pages/DrawInCanvas";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
 });
 
-test("Draw in canvas page test", async ({ page }) => {
-  const mainPage = new MainPage(page);
+test("Draw in canvas page test", async ({ mainPage, page }) => {
   await mainPage.openMainPage();
   await mainPage.openPage("Draw in canvas");
   const drawInCanvas = new DrawInCanvas(page);

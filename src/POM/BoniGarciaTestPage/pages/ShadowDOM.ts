@@ -1,8 +1,9 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
+import { Logger } from "../../../_Tools/Logger";
 
 export class ShadowDOM extends MainPage {
-  readonly shadowDOMparagraph: Locator;
+  private readonly shadowDOMparagraph: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -11,7 +12,9 @@ export class ShadowDOM extends MainPage {
 
   public async getTextFromShadowDOM(): Promise<string> {
     const text = await this.shadowDOMparagraph.textContent();
-    console.log(`Text from Shadow DOM: ${text}`);
+    Logger.logStep(`Getting element from Shadow DOM`, async () => {
+      console.log(`Text from Shadow DOM: ${text}`);
+    });
     return text || "Error: Text content is null";
   }
 }

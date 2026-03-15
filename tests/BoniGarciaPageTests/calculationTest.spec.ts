@@ -1,5 +1,5 @@
 import { RandomCalculatorPage } from "../../src/POM/BoniGarciaTestPage/pages/RandomCalculatorPage";
-import { fixture as test } from "./boniGarciaFixture.spec";
+import { fixture as test } from "./boniGarciaFixture.ts";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();

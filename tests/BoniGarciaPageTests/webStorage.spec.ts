@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.spec";
+import { fixture as test } from "./boniGarciaFixture.ts";
 import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
 import { WebStoragePage } from "../../src/POM/BoniGarciaTestPage/pages/WebStoragePage";
 
@@ -6,8 +6,7 @@ test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
 });
 
-test("Web storage page test", async ({ page }) => {
-  const mainPage = new MainPage(page);
+test("Web storage page test", async ({ mainPage, page }) => {
   await mainPage.openMainPage();
   const webStorage = new WebStoragePage(page);
   await webStorage.modifySessionStorage(

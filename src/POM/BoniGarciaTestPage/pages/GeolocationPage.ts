@@ -1,10 +1,11 @@
 import { BrowserContext, expect, Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
+import { Logger } from "../../../_Tools/Logger";
 
 export class GeolocationPage extends MainPage {
-  readonly getGeBtn: Locator;
-  readonly coordinatesInfo: Locator;
-  private context: BrowserContext;
+  private readonly getGeBtn: Locator;
+  private readonly coordinatesInfo: Locator;
+  private readonly context: BrowserContext;
 
   constructor(page: Page) {
     super(page);
@@ -17,7 +18,10 @@ export class GeolocationPage extends MainPage {
     await this.getGeBtn.click();
   }
 
-  public async verifyCoords(coords?: { longitude: number; latitude: number }) {
+  public async verifyCoords(coords?: {
+    longitude: number;
+    latitude: number;
+  }): Promise<void> {
     if (coords) {
       await expect(this.page.locator("#coordinates")).toContainText(
         String(coords?.longitude),
@@ -41,11 +45,19 @@ export class GeolocationPage extends MainPage {
   }: {
     longitude: number;
     latitude: number;
-  }) {
-    await this.context.setGeolocation({
-      longitude: longitude,
-      latitude: latitude,
-    });
-    return { longitude, latitude };
+  }): Promise<{
+    longitude: number;
+    latitude: number;
+  }> {
+    return await Logger.logStep(
+      "Setting new geolocation coordinates",
+      async () => {
+        await this.context.setGeolocation({
+          longitude: longitude,
+          latitude: latitude,
+        });
+        return { longitude, latitude };
+      },
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { Page, Locator, expect } from "@playwright/test";
+import { Logger } from "../../../_Tools/Logger";
 
-  export  default  class MainPage {
+export default class MainPage {
   readonly mainHeader: Locator;
   readonly logoImg: Locator;
   readonly cardBody: Locator;
@@ -16,19 +17,28 @@ import { Page, Locator, expect } from "@playwright/test";
   }
 
   async verifyMainPageElements(): Promise<void> {
-    await expect(this.mainHeader).toBeVisible();
-    await expect(this.logoImg).toBeVisible();
-    await expect(this.cardBody).toHaveCount(6);
-    await expect(this.subPageBtn).toHaveCount(27);
+    await Logger.logStep("Im verify elements on page", async () => {
+      await expect(this.mainHeader).toBeVisible();
+      await expect(this.logoImg).toBeVisible();
+      await expect(this.cardBody).toHaveCount(6);
+      await expect(this.subPageBtn).toHaveCount(27);
+    });
   }
 
   async openPage(btnName: string): Promise<void> {
-    let btn = this.subPageBtn.getByText(btnName, { exact: true } );
-    await expect(btn).toHaveCount(1);
-    await btn.first().click();
+    await Logger.logStep(`"Im opening ${btnName} page`, async () => {
+      let btn = this.subPageBtn.getByText(btnName, { exact: true });
+      await expect(btn).toHaveCount(1);
+      await btn.first().click();
+    });
   }
 
   async openMainPage(): Promise<void> {
-    await this.page.goto("https://bonigarcia.dev/selenium-webdriver-java/");
+    return await Logger.logStep(
+      `Im opening main page of Bonigarcia page`,
+      async () => {
+        await this.page.goto("https://bonigarcia.dev/selenium-webdriver-java/");
+      },
+    );
   }
 }

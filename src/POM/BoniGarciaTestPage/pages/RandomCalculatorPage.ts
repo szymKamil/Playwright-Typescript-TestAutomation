@@ -1,7 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
-import { th } from "@faker-js/faker";
-import { Actions } from "../../../Actions/Actions";
+import { Actions } from "../../../_Tools/Actions.ts";
 
 enum CalcBtns {
   "+" = "+",

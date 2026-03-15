@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.spec";
+import { fixture as test } from "./boniGarciaFixture.ts";
 import { Multilanguage } from "../../src/POM/BoniGarciaTestPage/pages/Multilanguage";
 
 

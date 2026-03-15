@@ -14,21 +14,22 @@ export class WebStoragePage extends MainPage {
   public async modifyLocalStorage(
     ...insert: Array<{ key: string; value: string }>
   ) {
-      await this.page.evaluate((items) => {
-        for (let i = 0; i < items.length; i++) {
-          localStorage.setItem(items[i].key, items[i].value);
-        }
-        }, insert);
-    };
-  
+    await this.page.evaluate((items) => {
+      for (let i = 0; i < items.length; i++) {
+        localStorage.setItem(items[i].key, items[i].value);
+      }
+    }, insert);
+  }
 
-  public async modifySessionStorage(...insert: Array<{ key: string; value: string }>) {
-      await this.page.addInitScript((items) => {
-        for (let i = 0; i < items.length; i++) {
-          window.sessionStorage.setItem(items[i].key, items[i].value);
-        }
-      }, insert);
-    }
+  public async modifySessionStorage(
+    ...insert: Array<{ key: string; value: string }>
+  ) {
+    await this.page.addInitScript((items) => {
+      for (let i = 0; i < items.length; i++) {
+        window.sessionStorage.setItem(items[i].key, items[i].value);
+      }
+    }, insert);
+  }
 
   public async openLocalStorage() {
     await this.displayLocalBtn.click();

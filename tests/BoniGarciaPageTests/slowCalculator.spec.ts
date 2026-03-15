@@ -1,13 +1,11 @@
-import { fixture as test } from "./boniGarciaFixture.spec";
-import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
+import { fixture as test } from "./boniGarciaFixture.ts";
 import { SlowCalculator } from "../../src/POM/BoniGarciaTestPage/pages/SlowCalculator";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
 });
 
-test("Slow calculator", async ({ page }) => {
-  const mainPage = new MainPage(page);
+test("Slow calculator", async ({ mainPage, page }) => {
   await mainPage.openMainPage();
   await mainPage.openPage("Slow calculator");
   const slowCalculator = new SlowCalculator(page);

@@ -1,5 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.spec";
-import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
+import { fixture as test } from "./boniGarciaFixture.ts";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();

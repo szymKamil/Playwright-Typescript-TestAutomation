@@ -1,6 +1,5 @@
 import { ConsoleLogsPage } from "../../src/POM/BoniGarciaTestPage/pages/ConsoleLogsPage";
-import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
-import { fixture as test } from "./boniGarciaFixture.spec";
+import { fixture as test } from "./boniGarciaFixture.ts";
 
 
 
