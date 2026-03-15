@@ -39,6 +39,7 @@ export default defineConfig({
       ],
     },
     locale: "es-ES",
+    acceptDownloads: true,
   },
 
   expect: {

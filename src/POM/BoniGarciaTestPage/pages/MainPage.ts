@@ -26,7 +26,7 @@ export default class MainPage {
   }
 
   async openPage(btnName: string): Promise<void> {
-    await Logger.logStep(`"Im opening ${btnName} page`, async () => {
+    await Logger.logStep(`Im opening ${btnName} page`, async () => {
       let btn = this.subPageBtn.getByText(btnName, { exact: true });
       await expect(btn).toHaveCount(1);
       await btn.first().click();
@@ -34,11 +34,6 @@ export default class MainPage {
   }
 
   async openMainPage(): Promise<void> {
-    return await Logger.logStep(
-      `Im opening main page of Bonigarcia page`,
-      async () => {
-        await this.page.goto("https://bonigarcia.dev/selenium-webdriver-java/");
-      },
-    );
+    await this.page.goto("https://bonigarcia.dev/selenium-webdriver-java/");
   }
 }
