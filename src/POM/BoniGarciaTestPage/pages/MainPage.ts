@@ -1,7 +1,9 @@
 import { Page, Locator, expect } from "@playwright/test";
 import { Logger } from "../../../_Tools/Logger";
+import { Actions } from "../../../_Tools/Actions";
 
 export default class MainPage {
+  readonly actions: Actions;
   readonly mainHeader: Locator;
   readonly logoImg: Locator;
   readonly cardBody: Locator;
@@ -10,6 +12,7 @@ export default class MainPage {
 
   constructor(page: Page) {
     this.page = page;
+    this.actions = new Actions(page);
     this.mainHeader = page.locator("h1.display-4");
     this.logoImg = page.locator("img.img-fluid");
     this.cardBody = page.locator("div.card-body");
@@ -35,5 +38,14 @@ export default class MainPage {
 
   async openMainPage(): Promise<void> {
     await this.page.goto("https://bonigarcia.dev/selenium-webdriver-java/");
+  }
+
+  async verifySnapshot() {
+    await Logger.logStep(
+      `Im verifing page comparing to screenshot`,
+      async () => {
+        await this.actions.pageVisualTest("mainPage");
+      },
+    );
   }
 }

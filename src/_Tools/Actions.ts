@@ -66,4 +66,9 @@ export class Actions {
       current = Number(await locator.inputValue());
     }
   }
+
+  async pageVisualTest(pageName: string) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.page.screenshot()).toMatchSnapshot(`${pageName}.png`);
+  }
 }

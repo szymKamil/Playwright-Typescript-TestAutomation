@@ -47,38 +47,6 @@
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
         "timeout": 30000
-      },
-      {
-        "outputDir": "D:/Programowanie/Testy/PlaywrightTS/test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 1
-        },
-        "id": "firefox",
-        "name": "firefox",
-        "testDir": "D:/Programowanie/Testy/PlaywrightTS/tests",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 30000
-      },
-      {
-        "outputDir": "D:/Programowanie/Testy/PlaywrightTS/test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 1
-        },
-        "id": "webkit",
-        "name": "webkit",
-        "testDir": "D:/Programowanie/Testy/PlaywrightTS/tests",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 30000
       }
     ],
     "shard": null,
@@ -91,13 +59,13 @@
   },
   "suites": [
     {
-      "title": "BoniGarciaPageTests\\downloadFilePage.spec.ts",
-      "file": "BoniGarciaPageTests/downloadFilePage.spec.ts",
+      "title": "BoniGarciaPageTests\\mainPage.spec.ts",
+      "file": "BoniGarciaPageTests/mainPage.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "Download file test",
+          "title": "Main page test - verification of visibility of elements",
           "ok": true,
           "tags": [],
           "tests": [
@@ -109,22 +77,22 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 4,
+                  "workerIndex": 5,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1975,
+                  "duration": 1088,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "[2026-03-15T09:56:10.915Z] Im opening Download files page\n"
+                      "text": "[2026-03-16T20:09:44.141Z] Im verify elements on page\n"
                     },
                     {
-                      "text": "[2026-03-15T09:56:11.695Z] Filename is: webdrivermanager.png\n"
+                      "text": "[2026-03-16T20:09:44.190Z] Im verifing page comparing to screenshot\n"
                     }
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-03-15T09:56:09.664Z",
+                  "startTime": "2026-03-16T20:09:43.259Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -132,9 +100,9 @@
               "status": "expected"
             }
           ],
-          "id": "1b3b1ef59d0b4108acd4-03ef455e8a670bd5dfa8",
-          "file": "BoniGarciaPageTests/downloadFilePage.spec.ts",
-          "line": 10,
+          "id": "2146e0e0d397b10ff67d-b18d73a8d141afd30e76",
+          "file": "BoniGarciaPageTests/mainPage.spec.ts",
+          "line": 7,
           "column": 5
         }
       ]
@@ -142,8 +110,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-03-15T09:56:06.223Z",
-    "duration": 5512.277000000002,
+    "startTime": "2026-03-16T20:09:40.545Z",
+    "duration": 3902.438999999984,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
