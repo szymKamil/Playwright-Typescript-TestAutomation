@@ -1,0 +1,43 @@
+import { expect, Locator, Page } from "@playwright/test";
+import * as constants from "../const/const";
+
+enum CategoriesOptions {
+  HandTools = "Hand Tools",
+  PowerTools = "Power Tools",
+  Other = "Other",
+  SpecialTools = "Special Tools",
+  Rentals = "Rentals",
+}
+
+export class NavBarComponent {
+  readonly page: Page;
+  readonly homeBtn: Locator;
+  readonly categoriesBtn: Locator;
+  readonly contacBtn: Locator;
+  readonly signInBtn: Locator;
+  readonly localeBtn: Locator;
+  readonly logoImg: Locator;
+  readonly bannerImg: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.homeBtn = page.getByRole("menuitem", { name: "Home" });
+    this.categoriesBtn = page.getByRole("menuitem", { name: "Categories" });
+    this.contacBtn = page.getByRole("menuitem", { name: "Contact" });
+    this.signInBtn = page.getByRole("menuitem", { name: "Sign in" });
+    this.localeBtn = page.locator("#language");
+    this.logoImg = page.getByRole("img", { name: "Practice Software Testing" });
+    this.bannerImg = page.getByRole("img", { name: "Banner" });
+  }
+
+  public async clickHome(): Promise<void> {
+    await this.homeBtn.click();
+    await expect(this.page).toHaveURL(constants.url);
+  }
+
+  public async pickCategory(option: CategoriesOptions): Promise<void> {
+    await expect(this.categoriesBtn).toBeVisible();
+    await this.categoriesBtn.selectOption(option);
+    await expect(this.page.url).toContain(option.valueOf());
+  }
+}
