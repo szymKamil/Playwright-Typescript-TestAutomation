@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.ts";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 import { DragAndDrop } from "../../src/POM/BoniGarciaTestPage/pages/DragAndDrop";
 
 test.beforeEach(async ({ mainPage }) => {

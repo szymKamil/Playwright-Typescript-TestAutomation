@@ -1,5 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
-import * as constants from "../const/const";
+import * as constants from "../const/constans";
+import { SignIn } from "../pages/SignIn";
+import { Contact } from "../pages/Contact";
 
 enum CategoriesOptions {
   HandTools = "Hand Tools",
@@ -10,14 +12,13 @@ enum CategoriesOptions {
 }
 
 enum Languages {
-  DE = 'DE',
-  EN = 'EN',
-  ES = 'ES',
-  FR = 'FR',
-  NL = 'NL',
-  TR = 'TR',
+  DE = "DE",
+  EN = "EN",
+  ES = "ES",
+  FR = "FR",
+  NL = "NL",
+  TR = "TR",
 }
-
 
 export class NavBarComponent {
   readonly page: Page;
@@ -36,7 +37,9 @@ export class NavBarComponent {
     this.contacBtn = page.getByRole("menuitem", { name: "Contact" });
     this.signInBtn = page.getByRole("menuitem", { name: "Sign in" });
     this.localeBtn = page.locator("#language");
-    this.logoImg = page.getByRole("img", { name: "Practice Software Testing" });
+    this.logoImg = page.getByRole("link", {
+      name: "Practice Software Testing -",
+    });
     this.bannerImg = page.getByRole("img", { name: "Banner" });
   }
 
@@ -45,28 +48,25 @@ export class NavBarComponent {
     await expect(this.page).toHaveURL(constants.url);
   }
 
-  public async conatct(): Promise<void> {
+  public async contact(): Promise<Contact> {
     await this.contacBtn.click();
-    await expect(this.page).toHaveURL((constants.url).concat("contact"));
+    await expect(this.page).toHaveURL(constants.url.concat("contact"));
+    return new Contact(this.page);
   }
 
-
-  public async singIn(): Promise<void> {
+  public async singIn(): Promise<SignIn> {
     await this.signInBtn.click();
-    await expect(this.page).toHaveURL((constants.url).concat("auth/login"));
+    await expect(this.page).toHaveURL(constants.url.concat("auth/login"));
+    return new SignIn(this.page);
   }
 
   public async changeLanguage(language: Languages) {
     await this.localeBtn.selectOption(language);
   }
 
-
   public async pickCategory(option: CategoriesOptions): Promise<void> {
     await expect(this.categoriesBtn).toBeVisible();
     await this.categoriesBtn.selectOption(option);
     await this.page.waitForURL(`**/${option}`);
   }
-
-
-  
 }

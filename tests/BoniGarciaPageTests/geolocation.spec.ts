@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.ts";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 import { GeolocationPage } from "../../src/POM/BoniGarciaTestPage/pages/GeolocationPage";
 
 test.use({

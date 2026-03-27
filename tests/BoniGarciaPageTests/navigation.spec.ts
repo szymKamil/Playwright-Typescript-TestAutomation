@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.ts";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 import NavigationPage from "../../src/POM/BoniGarciaTestPage/pages/NavigationPage";
 
 test.beforeEach(async ({ mainPage }) => {

@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.ts";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 import { DrawInCanvas } from "../../src/POM/BoniGarciaTestPage/pages/DrawInCanvas";
 
 test.beforeEach(async ({ mainPage }) => {

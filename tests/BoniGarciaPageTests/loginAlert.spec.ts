@@ -1,5 +1,5 @@
 import { LoginFormPage } from "../../src/POM/BoniGarciaTestPage/pages/LoginFormPage";
-import { fixture as test } from "./boniGarciaFixture.ts";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
@@ -15,13 +15,12 @@ test.describe("Test is validating sucess and failed login in to page", () => {
   });
 
   test("Sucess login", async ({ mainPage, page }) => {
-    await mainPage.openPage('Login form')
+    await mainPage.openPage("Login form");
     const loginPage = new LoginFormPage(page);
     await loginPage.loginWithCred("user", "user");
     await loginPage.sendForm();
     await loginPage.assertSucessLogin();
   });
-
 
   test("Failed slow login test", async ({ mainPage, page }) => {
     await mainPage.openPage("Slow login");
@@ -32,7 +31,7 @@ test.describe("Test is validating sucess and failed login in to page", () => {
   });
 
   test("Sucess slow login test", async ({ mainPage, page }) => {
-    await mainPage.openPage('Slow login')
+    await mainPage.openPage("Slow login");
     const loginPage = new LoginFormPage(page);
     await loginPage.loginWithCred("user", "user");
     await loginPage.sendForm();

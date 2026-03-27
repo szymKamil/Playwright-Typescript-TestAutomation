@@ -1,0 +1,9 @@
+import { MainPage } from "../../src/POM/ToolShop/pages/mainPage";
+import { test } from "@playwright/test";
+import * as constans from "../../src/POM/ToolShop/const/constans";
+
+test("Main page verification", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.verifyElementsPage();
+});

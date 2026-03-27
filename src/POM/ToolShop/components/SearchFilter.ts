@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 
 enum SortingTypes {
+  EmptySort = "",
   NameAZ = "Name (A-Z)",
   NameZA = "Name (Z-A)",
   PriceHighLow = "Price (High-Low)",

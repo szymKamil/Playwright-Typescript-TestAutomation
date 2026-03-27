@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.ts";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 import { LoadingImagesPage } from "../../src/POM/BoniGarciaTestPage/pages/LoadingImagesPage";
 
 test.beforeEach(async ({ mainPage }) => {

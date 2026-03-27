@@ -1,4 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.ts";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 import { MouseOverPage } from "../../src/POM/BoniGarciaTestPage/pages/MouseOverPage";
 
 test.beforeEach(async ({ mainPage }) => {

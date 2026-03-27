@@ -24,7 +24,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["html"], ["json", { outputFile: "test-results.json" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  snapshotDir: './snapshots',
+  snapshotDir: "./snapshots",
   timeout: 30_000,
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -40,7 +40,7 @@ export default defineConfig({
         "--allow-file-access-from-files", // dostęp do lokalnych plików
       ],
     },
-    locale: "es-ES",
+    locale: "en-US",
     acceptDownloads: true,
   },
 

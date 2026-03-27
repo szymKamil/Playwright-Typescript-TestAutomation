@@ -1,6 +1,4 @@
-import { fixture as test } from "./boniGarciaFixture.ts";
-import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
-import { IFramePage } from "../../src/POM/BoniGarciaTestPage/pages/iFramePage";
+import { fixture as test } from "./Fixture/boniGarciaFixture";
 import { DownloadFilePage } from "../../src/POM/BoniGarciaTestPage/pages/DownloadFilePage.ts";
 
 test.beforeEach(async ({ mainPage }) => {
