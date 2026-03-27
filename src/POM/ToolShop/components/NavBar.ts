@@ -9,6 +9,16 @@ enum CategoriesOptions {
   Rentals = "Rentals",
 }
 
+enum Languages {
+  DE = 'DE',
+  EN = 'EN',
+  ES = 'ES',
+  FR = 'FR',
+  NL = 'NL',
+  TR = 'TR',
+}
+
+
 export class NavBarComponent {
   readonly page: Page;
   readonly homeBtn: Locator;
@@ -30,14 +40,33 @@ export class NavBarComponent {
     this.bannerImg = page.getByRole("img", { name: "Banner" });
   }
 
-  public async clickHome(): Promise<void> {
+  public async home(): Promise<void> {
     await this.homeBtn.click();
     await expect(this.page).toHaveURL(constants.url);
   }
 
+  public async conatct(): Promise<void> {
+    await this.contacBtn.click();
+    await expect(this.page).toHaveURL((constants.url).concat("contact"));
+  }
+
+
+  public async singIn(): Promise<void> {
+    await this.signInBtn.click();
+    await expect(this.page).toHaveURL((constants.url).concat("auth/login"));
+  }
+
+  public async changeLanguage(language: Languages) {
+    await this.localeBtn.selectOption(language);
+  }
+
+
   public async pickCategory(option: CategoriesOptions): Promise<void> {
     await expect(this.categoriesBtn).toBeVisible();
     await this.categoriesBtn.selectOption(option);
-    await expect(this.page.url).toContain(option.valueOf());
+    await this.page.waitForURL(`**/${option}`);
   }
+
+
+  
 }
