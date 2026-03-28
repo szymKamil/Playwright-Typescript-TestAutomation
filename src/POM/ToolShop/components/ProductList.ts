@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class ProductList{
   readonly productListCard: Locator;
@@ -19,6 +19,17 @@ export class ProductList{
     this.pagination = page.locator('ul.pagination');
   }
 
+  // ====== Functions ======
+  async getNumOfDisplayedProducts(): Promise<number>{
+    return await this.productListCard.count();
+  }
+
+  async findDisplayedProducts(productName: string){
+   for (let i = 0; i < (await this.productListCard.count()); i++){
+      await expect(this.productName.nth(i)).toContainText(new RegExp(productName, 'i'));
+   }
+
+  }
 
 
 

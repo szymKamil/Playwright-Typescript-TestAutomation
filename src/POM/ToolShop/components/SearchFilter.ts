@@ -10,7 +10,7 @@ enum SortingTypes {
   CORatingEA = "CO₂ Rating (E - A)",
 }
 
-export class MainPage {
+export class SearchFunctions {
   readonly sortLookup: Locator;
   readonly priceRange: Locator;
   readonly priceRangeMin: Locator;
@@ -37,6 +37,7 @@ export class MainPage {
   public async search(input: string) {
     await this.searchInput.pressSequentially(input);
     await expect(this.searchInput).toHaveValue(input);
+    await this.searchBtn.click();
   }
 
   public async clickSearch(): Promise<void> {

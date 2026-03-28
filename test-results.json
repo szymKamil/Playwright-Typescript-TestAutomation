@@ -59,13 +59,13 @@
   },
   "suites": [
     {
-      "title": "ToolShopTests\\mainPageTests.spec.ts",
-      "file": "ToolShopTests/mainPageTests.spec.ts",
+      "title": "ToolShopTests\\searchToolsTests.spec.ts",
+      "file": "ToolShopTests/searchToolsTests.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "Main page verification",
+          "title": "Search test",
           "ok": true,
           "tags": [],
           "tests": [
@@ -77,22 +77,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1644,
+                  "duration": 1516,
                   "errors": [],
-                  "stdout": [
-                    {
-                      "text": "[2026-03-27T20:51:28.390Z] Veryfing main page elements\n"
-                    },
-                    {
-                      "text": "[2026-03-27T20:51:28.478Z]  All of the elements are visible\n"
-                    }
-                  ],
+                  "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-03-27T20:51:26.773Z",
+                  "startTime": "2026-03-28T20:36:14.181Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -100,8 +93,8 @@
               "status": "expected"
             }
           ],
-          "id": "95857179b2e3cde8d4cd-0d257d1e54401b39ff6e",
-          "file": "ToolShopTests/mainPageTests.spec.ts",
+          "id": "deca6098995c0c792238-b74ef91342f2b4ea7bf7",
+          "file": "ToolShopTests/searchToolsTests.spec.ts",
           "line": 5,
           "column": 5
         }
@@ -110,8 +103,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-03-27T20:51:23.540Z",
-    "duration": 4987.231,
+    "startTime": "2026-03-28T20:36:11.234Z",
+    "duration": 4558.02500000014,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

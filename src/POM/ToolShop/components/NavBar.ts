@@ -69,4 +69,18 @@ export class NavBarComponent {
     await this.categoriesBtn.selectOption(option);
     await this.page.waitForURL(`**/${option}`);
   }
+
+  /**
+   * Interface test
+   */
+  async verifyElementsPage() {
+      await expect(this.homeBtn).toBeVisible();
+      await expect(this.categoriesBtn).toBeVisible();
+      await expect(this.contacBtn).toBeVisible();
+      await expect(this.signInBtn).toBeVisible();
+      await expect(this.localeBtn).toBeVisible();
+      await expect(this.logoImg).toBeVisible();
+      await expect(this.bannerImg).toBeVisible();
+    };
+
 }
