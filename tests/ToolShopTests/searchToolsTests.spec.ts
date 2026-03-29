@@ -8,3 +8,20 @@ test("Search test", async ({ page }) => {
   await mainPage.search.search("Hammer");
   await mainPage.productList.findDisplayedProducts("hammer");
 });
+
+
+test("Filter test by category", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.categoryTree.pickCategoryByName("Saw");
+  await mainPage.productList.findDisplayedProducts("Saw");
+});
+
+
+
+test("Filter test by brand", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.categoryTree.pickCategoryByName("Saw");
+  await mainPage.productList.findDisplayedProducts("Saw");
+});

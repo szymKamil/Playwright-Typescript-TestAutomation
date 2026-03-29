@@ -1,9 +1,9 @@
 import { expect, Locator, Page } from "@playwright/test";
-import * as constants from "../const/constans";
+import * as constants from "../utils/constans";
 import { SignIn } from "../pages/SignIn";
 import { Contact } from "../pages/Contact";
 
-enum CategoriesOptions {
+export enum CategoriesOptions {
   HandTools = "Hand Tools",
   PowerTools = "Power Tools",
   Other = "Other",
@@ -24,6 +24,7 @@ export class NavBarComponent {
   readonly page: Page;
   readonly homeBtn: Locator;
   readonly categoriesBtn: Locator;
+  readonly categoriesContainer: Locator;
   readonly contacBtn: Locator;
   readonly signInBtn: Locator;
   readonly localeBtn: Locator;
@@ -34,6 +35,9 @@ export class NavBarComponent {
     this.page = page;
     this.homeBtn = page.getByRole("menuitem", { name: "Home" });
     this.categoriesBtn = page.getByRole("menuitem", { name: "Categories" });
+    this.categoriesContainer = page.getByRole("list", {
+      name: "nav-categories",
+    });
     this.contacBtn = page.getByRole("menuitem", { name: "Contact" });
     this.signInBtn = page.getByRole("menuitem", { name: "Sign in" });
     this.localeBtn = page.locator("#language");
@@ -66,21 +70,25 @@ export class NavBarComponent {
 
   public async pickCategory(option: CategoriesOptions): Promise<void> {
     await expect(this.categoriesBtn).toBeVisible();
-    await this.categoriesBtn.selectOption(option);
-    await this.page.waitForURL(`**/${option}`);
+    await this.categoriesBtn.click();
+    await expect(this.categoriesContainer).toBeVisible();
+    const urlSlug = option.toLowerCase().replace(/\s+/g, '-');
+    await Promise.all([
+      this.page.waitForURL(`**/${urlSlug}`),
+      this.categoriesContainer.getByText(option).click(),
+    ]);
   }
 
   /**
    * Interface test
    */
   async verifyElementsPage() {
-      await expect(this.homeBtn).toBeVisible();
-      await expect(this.categoriesBtn).toBeVisible();
-      await expect(this.contacBtn).toBeVisible();
-      await expect(this.signInBtn).toBeVisible();
-      await expect(this.localeBtn).toBeVisible();
-      await expect(this.logoImg).toBeVisible();
-      await expect(this.bannerImg).toBeVisible();
-    };
-
+    await expect(this.homeBtn).toBeVisible();
+    await expect(this.categoriesBtn).toBeVisible();
+    await expect(this.contacBtn).toBeVisible();
+    await expect(this.signInBtn).toBeVisible();
+    await expect(this.localeBtn).toBeVisible();
+    await expect(this.logoImg).toBeVisible();
+    await expect(this.bannerImg).toBeVisible();
+  }
 }

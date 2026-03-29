@@ -34,13 +34,13 @@ export class Actions {
     await locator.setInputFiles(file);
   }
 
-  async checkUncheck(element: Locator, check?: boolean): Promise<void> {
-    if (check) {
-      await element.check();
-      expect(await element.isChecked()).toBe(true);
-    } else {
+  async checkUncheck(element: Locator, uncheck?: boolean): Promise<void> {
+    if (uncheck) {
       await element.uncheck();
       expect(await element.isChecked()).toBe(false);
+    } else {
+      await element.check();
+      expect(await element.isChecked()).toBe(true);
     }
   }
 

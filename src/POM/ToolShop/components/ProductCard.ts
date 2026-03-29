@@ -1,5 +1,4 @@
 import { Locator, Page } from "@playwright/test";
-import { link } from "node:fs";
 
 export class ProductCard {
   readonly cardImg: Locator;
@@ -18,7 +17,7 @@ export class ProductCard {
   readonly relatedProductsName: Locator;
   readonly relatedProductsMore: Locator;
 
-  cosnstructor(page: Page) {
+  constructor(page: Page) {
     this.cardImg = page.locator("img.figure-img");
     this.cardProductName = page.getByRole("heading");
     this.categoryTag = page.getByRole("generic", { name: "category" });

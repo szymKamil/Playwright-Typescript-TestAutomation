@@ -1,9 +1,11 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { Actions } from "../../../_Tools/Actions";
 
-export class NavBarComponent {
+export class CategoryTreeFilter {
   readonly categoryTree: Locator;
   readonly brandTree: Locator;
   readonly sustainabilityTree: Locator;
+  readonly actions: Actions;
 
   constructor(page: Page) {
     this.categoryTree = page.getByRole("group", { name: "Categories" });
@@ -11,18 +13,16 @@ export class NavBarComponent {
     this.sustainabilityTree = page.getByRole("group", {
       name: "Sustainability",
     });
+    this.actions = new Actions(page);
   }
 
   public async pickCategoryByName(input: string) {
-    await expect(this.categoryTree).toBeVisible();
-    await this.categoryTree.getByText(input).check();
+    await this.actions.checkUncheck(this.categoryTree.getByText(input, { exact: true }));
   }
   public async pickBrandByName(input: string) {
-    await expect(this.brandTree).toBeVisible();
-    await this.brandTree.getByText(input).check();
+      await this.actions.checkUncheck(this.brandTree.getByText(input, { exact: true }));
   }
   public async pickSustainabilityByName(input: string) {
-    await expect(this.sustainabilityTree).toBeVisible();
-    await this.sustainabilityTree.getByText(input).check();
+      await this.actions.checkUncheck(this.sustainabilityTree.getByText(input, { exact: true }));
   }
 }
