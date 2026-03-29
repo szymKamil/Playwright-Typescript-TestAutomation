@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class ProductCard {
   readonly cardImg: Locator;
@@ -45,5 +45,27 @@ export class ProductCard {
     this.relatedProductsMore = page.getByRole("link", {
       name: "More information",
     });
+  }
+
+  async assertProductCardContainInfo(name?: string, price?: string) {
+    await expect(this.cardImg).toBeVisible();
+    if (name) {
+      await expect(this.cardProductName).toContainText(name);
+    } else {
+      await expect(this.cardProductName).toBeVisible();
+    }
+    expect(this.categoryTag.count).toBeGreaterThan(0);
+    if (price) {
+      await expect(this.cardPrice).toContainText(price);
+    } else {
+      await expect(this.cardPrice).toBeVisible();
+    }
+    await expect(this.cardBadge).toBeVisible();
+    await expect(this.cardIncreaseBtn).toBeVisible();
+    await expect(this.cardDecreaseBtn).toBeVisible();
+    await expect(this.cardAmount).toHaveValue("1");
+    await expect(this.cardAddToCartBtn).toBeVisible();
+    await expect(this.cardAddToFavoritesBtn).toBeVisible();
+    expect(this.relatedProducts.count).toBeGreaterThan(0);
   }
 }

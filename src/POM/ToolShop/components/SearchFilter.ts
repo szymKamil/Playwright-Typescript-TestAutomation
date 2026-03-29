@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { Actions } from "../../../_Tools/Actions";
 
 enum SortingTypes {
   EmptySort = "",
@@ -11,8 +12,10 @@ enum SortingTypes {
 }
 
 export class SearchFunctions {
+  readonly page: Page;
+  readonly actions: Actions;
   readonly sortLookup: Locator;
-  readonly priceRange: Locator;
+  readonly priceSlider: Locator;
   readonly priceRangeMin: Locator;
   readonly priceRangeMax: Locator;
   readonly searchInput: Locator;
@@ -20,8 +23,10 @@ export class SearchFunctions {
   readonly searchBtn: Locator;
 
   constructor(page: Page) {
+    this.page = page;
+    this.actions = new Actions(page);
     this.sortLookup = page.getByRole("combobox", { name: "sort" });
-    this.priceRange = page.locator("css=ngx-slider.ngx-slider");
+    this.priceSlider = page.locator("css=ngx-slider.ngx-slider");
     this.priceRangeMin = page.locator("span.ngx-slider-pointer-min");
     this.priceRangeMax = page.locator("css=span.ngx-slider-pointer-max");
     this.searchInput = page.getByRole("textbox", { name: "Search" });
@@ -49,4 +54,30 @@ export class SearchFunctions {
     await this.searchClear.click();
     await expect(this.searchClear).toHaveValue("");
   }
+
+  public async setPriceRange(min?: number, max?: number) {
+    if (min) {
+      await this.priceRangeMin.focus();
+      const currentMin = await this.priceRangeMin.evaluate((el) =>
+        parseInt(el.getAttribute("aria-valuenow") ?? "0"),
+      );
+      const steps = min - currentMin;
+      const key = steps > 0 ? "ArrowRight" : "ArrowLeft";
+      for (let i = 0; i < Math.abs(steps); i++) {
+        await this.page.keyboard.press(key);
+      }
+    } 
+    if (max) {
+      await this.priceRangeMax.focus();
+      const currentMax = await this.priceRangeMax.evaluate((el) =>
+        parseInt(el.getAttribute("aria-valuenow") ?? "0"),
+      );
+      const stepsMax = max - currentMax;
+      const keyMax = stepsMax > 0 ? "ArrowRight" : "ArrowLeft";
+      for (let i = 0; i < Math.abs(stepsMax); i++) {
+        await this.page.keyboard.press(keyMax);
+      }
+    }
+  }
+
 }
