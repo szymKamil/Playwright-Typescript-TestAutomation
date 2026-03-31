@@ -34,7 +34,7 @@ export class ProductList {
   async loopThroughPagesAndPerformAction(func: Function) {
     const pageCount = await this.pagination.getByRole("button").count();
     for (let i = 0; i < pageCount; i++) {
-      const btn = this.pagination.getByText(new RegExp(/^${i + 1}$/));
+      const btn = this.pagination.getByText(new RegExp(`^${i + 1}$`));
       if (await btn.isVisible()) {
         await btn.click();
         await func();
