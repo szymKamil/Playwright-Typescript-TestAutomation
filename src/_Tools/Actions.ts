@@ -72,12 +72,8 @@ export class Actions {
     expect(await this.page.screenshot()).toMatchSnapshot(`${pageName}.png`);
   }
 
-  // async moveSlider(slider: Locator, sliderRange?:Locator, value: number) {
-  //   const box = await slider.boundingBox();
-  //   await this.page.mouse.move(box.x, box.y + box.height / 2);
-  //   await this.page.mouse.down();
-  //   await this.page.mouse.move(box.x + 100, box.y + box.height / 2);
-  //   await this.page.mouse.up();
-  //   }
+  async goBack() {
+    await this.page.goBack();
+  }
   
 }

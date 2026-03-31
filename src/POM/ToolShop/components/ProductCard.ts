@@ -1,6 +1,8 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { Actions } from '../../../_Tools/Actions'
 
 export class ProductCard {
+  readonly actions: Actions;
   readonly cardImg: Locator;
   readonly cardProductName: Locator;
   readonly categoryTag: Locator;
@@ -18,6 +20,7 @@ export class ProductCard {
   readonly relatedProductsMore: Locator;
 
   constructor(page: Page) {
+    this.actions = new Actions(page);
     this.cardImg = page.locator("img.figure-img");
     this.cardProductName = page.getByRole("heading");
     this.categoryTag = page.getByRole("generic", { name: "category" });
@@ -47,6 +50,10 @@ export class ProductCard {
     });
   }
 
+  async exitCard(){
+    await this.actions.goBack();
+  }
+
   async assertProductCardContainInfo(name?: string, price?: string) {
     await expect(this.cardImg).toBeVisible();
     if (name) {
@@ -68,4 +75,10 @@ export class ProductCard {
     await expect(this.cardAddToFavoritesBtn).toBeVisible();
     expect(this.relatedProducts.count).toBeGreaterThan(0);
   }
+
+  async assertProductBrand(brand: string) {
+    await this.categoryTag.filter({hasText: brand}).isVisible();
+  }
+
+
 }

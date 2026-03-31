@@ -1,12 +1,12 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { Actions } from "../../../_Tools/Actions";
 
-enum SortingTypes {
+export enum SortingTypes {
   EmptySort = "",
-  NameAZ = "Name (A-Z)",
-  NameZA = "Name (Z-A)",
-  PriceHighLow = "Price (High-Low)",
-  PriceLowHigh = "Price (Low-High)",
+  NameAZ = "Name (A - Z)",
+  NameZA = "Name (Z - A)",
+  PriceHighLow = "Price (High - Low)",
+  PriceLowHigh = "Price (Low - High)",
   CORatingAE = "CO₂ Rating (A - E)",
   CORatingEA = "CO₂ Rating (E - A)",
 }
@@ -35,7 +35,7 @@ export class SearchFunctions {
   }
 
   public async sortBy(sort: SortingTypes) {
-    await this.sortLookup.selectOption(sort);
+    await this.sortLookup.selectOption({label: sort});
     await expect(this.sortLookup).toHaveText(sort.toString());
   }
 
@@ -56,28 +56,24 @@ export class SearchFunctions {
   }
 
   public async setPriceRange(min?: number, max?: number) {
-    if (min) {
-      await this.priceRangeMin.focus();
-      const currentMin = await this.priceRangeMin.evaluate((el) =>
-        parseInt(el.getAttribute("aria-valuenow") ?? "0"),
-      );
-      const steps = min - currentMin;
-      const key = steps > 0 ? "ArrowRight" : "ArrowLeft";
-      for (let i = 0; i < Math.abs(steps); i++) {
-        await this.page.keyboard.press(key);
-      }
-    } 
-    if (max) {
-      await this.priceRangeMax.focus();
-      const currentMax = await this.priceRangeMax.evaluate((el) =>
-        parseInt(el.getAttribute("aria-valuenow") ?? "0"),
-      );
-      const stepsMax = max - currentMax;
-      const keyMax = stepsMax > 0 ? "ArrowRight" : "ArrowLeft";
-      for (let i = 0; i < Math.abs(stepsMax); i++) {
-        await this.page.keyboard.press(keyMax);
-      }
+    await this.priceRangeMin.focus();
+    const currentMin = await this.priceRangeMin.evaluate((el) =>
+      Number.parseInt(el.getAttribute("aria-valuenow") ?? "0"),
+    );
+    const steps = min ? min - currentMin : 0;
+    const key = steps > 0 ? "ArrowRight" : "ArrowLeft";
+    for (let i = 0; i < Math.abs(steps); i++) {
+      await this.page.keyboard.press(key);
+    }
+
+    await this.priceRangeMax.focus();
+    const currentMax = await this.priceRangeMax.evaluate((el) =>
+      Number.parseInt(el.getAttribute("aria-valuenow") ?? "0"),
+    );
+    const stepsMax = max ? max - currentMax : 100;
+    const keyMax = stepsMax > 0 ? "ArrowRight" : "ArrowLeft";
+    for (let i = 0; i < Math.abs(stepsMax); i++) {
+      await this.page.keyboard.press(keyMax);
     }
   }
-
 }

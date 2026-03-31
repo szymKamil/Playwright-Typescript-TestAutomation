@@ -11,18 +11,26 @@ export class CategoryTreeFilter {
     this.categoryTree = page.getByRole("group", { name: "Categories" });
     this.brandTree = page.getByRole("group", { name: "Brands" });
     this.sustainabilityTree = page.getByRole("group", {
-      name: "Sustainability",
+      name: "Eco-Friendly Products",
     });
     this.actions = new Actions(page);
   }
 
   public async pickCategoryByName(input: string) {
-    await this.actions.checkUncheck(this.categoryTree.getByText(input, { exact: true }));
+    await this.actions.checkUncheck(
+      this.categoryTree.getByText(input, { exact: true }),
+    );
   }
   public async pickBrandByName(input: string) {
-      await this.actions.checkUncheck(this.brandTree.getByText(input, { exact: true }));
+    await this.actions.checkUncheck(
+      this.brandTree.getByText(input, { exact: true }),
+    );
   }
-  public async pickSustainabilityByName(input: string) {
-      await this.actions.checkUncheck(this.sustainabilityTree.getByText(input, { exact: true }));
+  public async pickSustainabilityProducts() {
+    await this.actions.checkUncheck(
+      this.sustainabilityTree.getByText("Show only eco-friendly products", {
+        exact: true,
+      }),
+    );
   }
 }

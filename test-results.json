@@ -46,7 +46,7 @@
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 30000
+        "timeout": 60000
       }
     ],
     "shard": null,
@@ -59,33 +59,33 @@
   },
   "suites": [
     {
-      "title": "ToolShopTests\\mainPageTests.spec.ts",
-      "file": "ToolShopTests/mainPageTests.spec.ts",
+      "title": "ToolShopTests\\searchToolsTests.spec.ts",
+      "file": "ToolShopTests/searchToolsTests.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "Power tools category change",
+          "title": "Assert that sustainability filter show only A and B rated products",
           "ok": true,
           "tags": [],
           "tests": [
             {
-              "timeout": 30000,
+              "timeout": 60000,
               "annotations": [],
               "expectedStatus": "passed",
               "projectId": "chromium",
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 10,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1498,
+                  "duration": 1277,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-03-29T09:54:38.138Z",
+                  "startTime": "2026-03-31T20:21:59.862Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -93,9 +93,9 @@
               "status": "expected"
             }
           ],
-          "id": "95857179b2e3cde8d4cd-7a99e1f72935e2639b4a",
-          "file": "ToolShopTests/mainPageTests.spec.ts",
-          "line": 14,
+          "id": "deca6098995c0c792238-925e61d72d34fd1e2921",
+          "file": "ToolShopTests/searchToolsTests.spec.ts",
+          "line": 56,
           "column": 5
         }
       ]
@@ -103,8 +103,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-03-29T09:54:35.115Z",
-    "duration": 4629.339999999967,
+    "startTime": "2026-03-31T20:21:56.368Z",
+    "duration": 4902.457999999984,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
