@@ -46,11 +46,19 @@ export class ProductList {
     return await this.productListCard.count();
   }
 
-  async findDisplayedProducts(productName: string) {
-    for (let i = 0; i < (await this.productListCard.count()); i++) {
-      await expect(this.productName.nth(i)).toContainText(
-        new RegExp(productName, "i"),
-      );
+  async checkDisplayedProducts(productName: string | null) {
+    if (typeof productName === "string") {
+      await expect(this.productListCard.nth(0)).toContainText(productName);
+      for (let i = 0; i < (await this.productListCard.count()); i++) {
+        if (productName) {
+          await expect(this.productName.nth(i)).toContainText(
+            new RegExp(productName, "i"),
+          );
+        }
+      }
+    }
+    if (productName === null) {
+      expect(this.productName.allTextContents()).toBeNull();
     }
   }
 

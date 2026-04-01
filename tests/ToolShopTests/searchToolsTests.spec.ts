@@ -9,14 +9,14 @@ test("Search test", async ({ page }) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
   await mainPage.search.search("Hammer");
-  await mainPage.productList.findDisplayedProducts("hammer");
+  await mainPage.productList.checkDisplayedProducts("hammer");
 });
 
 test("Filter test by category", async ({ page }) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
   await mainPage.categoryTree.pickCategoryByName("Saw");
-  await mainPage.productList.findDisplayedProducts("Saw");
+  await mainPage.productList.checkDisplayedProducts("Saw");
 });
 
 test("Filter test by brand", async ({ page }) => {
@@ -35,7 +35,7 @@ test("Test price range", async ({ page }) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
   await mainPage.search.setPriceRange(70, 76);
-  await mainPage.productList.findDisplayedProducts("Belt Sander");
+  await mainPage.productList.checkDisplayedProducts("Belt Sander");
 });
 
 test("Sorting test", async ({ page }) => {
@@ -45,17 +45,56 @@ test("Sorting test", async ({ page }) => {
   await mainPage.search.sortBy(SortingTypes.NameZA);
 });
 
-test('Out of stock product test', async ({ page }) =>{
+//TODO:
+// test("Sorting test", async ({ page }) => {
+//   await page.goto(constans.url);
+//   const mainPage = new MainPage(page);
+//   await mainPage.search.sortBy(SortingTypes.PriceLowHigh);
+
+//   await mainPage.search.sortBy(SortingTypes.PriceLowHigh);
+// });
+
+test("Out of stock product test", async ({ page }) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
-  await mainPage.search.search('Long Nose Pliers');
-  //await mainPage.productList
-})
+  await mainPage.search.search("Long Nose Pliers");
+  await mainPage.productList.isProductOutOfStock("Long Nose Pliers");
+});
 
-
-test('Assert that sustainability filter show only A and B rated products', async ({ page }) =>{
+test("Assert that sustainability filter show only A and B rated products", async ({
+  page,
+}) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
   await mainPage.categoryTree.pickSustainabilityProducts();
-  await mainPage.productList.loopThroughPagesAndPerformAction(async () => await mainPage.productList.assertProductsAreEco());
+  await mainPage.productList.loopThroughPagesAndPerformAction(
+    async () => await mainPage.productList.assertProductsAreEco(),
+  );
+});
+
+test("Filter by price range between 190 and 200", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.search.setPriceRange(190, 200);
+  await mainPage.productList.checkDisplayedProducts(null);
+});
+
+
+test.fail("Failed search test", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.search.search("sas24tfgfdb");
+  await mainPage.productList.checkDisplayedProducts("pliers");
+});
+
+
+test("Filter test category and brand", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.categoryTree.pickCategoryByName("Pliers");
+  await mainPage.categoryTree.pickBrandByName("MightyCraft Hardware");
+  await mainPage.productList.openProductCardByIndex(utils.getRandomNum(0, 3));
+  const productCard = new ProductCard(page);
+  await productCard.assertProductBrand("MightyCraft Hardware");
+  await productCard.exitCard();
 });

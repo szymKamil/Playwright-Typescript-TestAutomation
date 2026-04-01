@@ -35,7 +35,7 @@ export class SearchFunctions {
   }
 
   public async sortBy(sort: SortingTypes) {
-    await this.sortLookup.selectOption({label: sort});
+    await this.sortLookup.selectOption({ label: sort });
     await expect(this.sortLookup).toHaveText(sort.toString());
   }
 
@@ -56,6 +56,7 @@ export class SearchFunctions {
   }
 
   public async setPriceRange(min?: number, max?: number) {
+    //TODO: Refaktor tak, by price range który przekracza zakres drugiego nie wywalał się
     await this.priceRangeMin.focus();
     const currentMin = await this.priceRangeMin.evaluate((el) =>
       Number.parseInt(el.getAttribute("aria-valuenow") ?? "0"),
