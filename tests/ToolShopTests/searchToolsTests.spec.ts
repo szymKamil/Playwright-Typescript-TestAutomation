@@ -4,6 +4,7 @@ import { MainPage } from "../../src/POM/ToolShop/pages/mainPage";
 import { SortingTypes } from "../../src/POM/ToolShop/components/SearchFilter";
 import * as utils from "../../src/POM/ToolShop/utils/utils";
 import { ProductCard } from "../../src/POM/ToolShop/components/ProductCard";
+import { CategoriesOptions } from "../../src/POM/ToolShop/components/NavBar";
 
 test("Search test", async ({ page }) => {
   await page.goto(constans.url);
@@ -45,7 +46,7 @@ test("Sorting test", async ({ page }) => {
   await mainPage.search.sortBy(SortingTypes.NameZA);
 });
 
-//TODO:
+//TODO: weryfikacja ceny 
 // test("Sorting test", async ({ page }) => {
 //   await page.goto(constans.url);
 //   const mainPage = new MainPage(page);
@@ -76,7 +77,7 @@ test("Filter by price range between 190 and 200", async ({ page }) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
   await mainPage.search.setPriceRange(190, 200);
-  await mainPage.productList.checkDisplayedProducts(null);
+  await mainPage.productList.checkDisplayedProducts(0);
 });
 
 
@@ -98,3 +99,12 @@ test("Filter test category and brand", async ({ page }) => {
   await productCard.assertProductBrand("MightyCraft Hardware");
   await productCard.exitCard();
 });
+
+test('Filter by category and changing page', async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.categoryTree.pickCategoryByName("Screwdriver");
+  await mainPage.productList.checkDisplayedProducts("Screwdriver");
+  await mainPage.navBar.pickCategory(CategoriesOptions.HandTools);
+  await mainPage.categoryTree.isCategorySelected("Screwdriver", false);
+})

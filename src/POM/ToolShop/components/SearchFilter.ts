@@ -57,6 +57,24 @@ export class SearchFunctions {
 
   public async setPriceRange(min?: number, max?: number) {
     //TODO: Refaktor tak, by price range który przekracza zakres drugiego nie wywalał się
+    const currentMinValue = await this.priceRangeMin
+      .getAttribute("aria-valuenow")
+      .then((value) => Number.parseInt(value ?? "0"));
+    const currentMaxValue = await this.priceRangeMax
+      .getAttribute("aria-valuenow")
+      .then((value) => Number.parseInt(value ?? "0"));
+
+    if (min !== undefined && min > currentMaxValue) {
+      await this.priceRangeMax.focus();
+      const currentMax = await this.priceRangeMax.evaluate((el) =>
+        Number.parseInt(el.getAttribute("aria-valuenow") ?? "0"),
+      );
+      const stepsMax = max ? max - currentMax : 100;
+      const keyMax = stepsMax > 0 ? "ArrowRight" : "ArrowLeft";
+      for (let i = 0; i < Math.abs(stepsMax); i++) {
+        await this.page.keyboard.press(keyMax);
+      }
+    }
     await this.priceRangeMin.focus();
     const currentMin = await this.priceRangeMin.evaluate((el) =>
       Number.parseInt(el.getAttribute("aria-valuenow") ?? "0"),
@@ -65,16 +83,6 @@ export class SearchFunctions {
     const key = steps > 0 ? "ArrowRight" : "ArrowLeft";
     for (let i = 0; i < Math.abs(steps); i++) {
       await this.page.keyboard.press(key);
-    }
-
-    await this.priceRangeMax.focus();
-    const currentMax = await this.priceRangeMax.evaluate((el) =>
-      Number.parseInt(el.getAttribute("aria-valuenow") ?? "0"),
-    );
-    const stepsMax = max ? max - currentMax : 100;
-    const keyMax = stepsMax > 0 ? "ArrowRight" : "ArrowLeft";
-    for (let i = 0; i < Math.abs(stepsMax); i++) {
-      await this.page.keyboard.press(keyMax);
     }
   }
 }

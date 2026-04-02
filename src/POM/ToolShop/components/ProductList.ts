@@ -46,7 +46,7 @@ export class ProductList {
     return await this.productListCard.count();
   }
 
-  async checkDisplayedProducts(productName: string | null) {
+  async checkDisplayedProducts(productName: string | number) {
     if (typeof productName === "string") {
       await expect(this.productListCard.nth(0)).toContainText(productName);
       for (let i = 0; i < (await this.productListCard.count()); i++) {
@@ -57,8 +57,8 @@ export class ProductList {
         }
       }
     }
-    if (productName === null) {
-      expect(this.productName.allTextContents()).toBeNull();
+    if (typeof productName === "number") {
+      await expect(this.productName).toHaveCount(productName);
     }
   }
 
