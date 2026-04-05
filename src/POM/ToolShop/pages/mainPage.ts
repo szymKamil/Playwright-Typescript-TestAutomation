@@ -25,22 +25,7 @@ export class MainPage {
 
   async verifyMainPage() {
     await Logger.logStep("Veryfing main page elements", async () => {
-      const elements = [
-        this.navBar.homeBtn,
-        this.navBar.categoriesBtn,
-        this.navBar.contacBtn,
-        this.navBar.signInBtn,
-        this.navBar.localeBtn,
-        this.navBar.logoImg,
-        this.navBar.bannerImg,
-        this.search.searchInput,
-        this.search.searchBtn,
-        this.search.sortLookup,
-        this.search.priceSlider,
-      ];
-      for (const element of elements) {
-        await expect(element).toBeVisible();
-      }
+      await this.navBar.verifyElementsPage();
       console.log(
         Logger.getTimestamp(),
         "All of the elements in Home page are visible",

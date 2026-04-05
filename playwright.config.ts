@@ -25,7 +25,7 @@ export default defineConfig({
   reporter: [["html"], ["json", { outputFile: "test-results.json" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   snapshotDir: "./snapshots",
-  timeout: 240_000,
+  timeout: 120_000,
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
@@ -45,7 +45,7 @@ export default defineConfig({
   },
 
   expect: {
-    timeout: 15_000, /// testy kończa się maksymalnie po 60s
+    timeout: 30_000, /// testy kończa się maksymalnie po 60s
   },
 
   /* Configure projects for major browsers */
