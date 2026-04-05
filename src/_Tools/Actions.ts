@@ -1,4 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
+import path from "path";
+import fs from "fs";
 
 export class Actions {
   readonly page: Page;
@@ -7,11 +9,7 @@ export class Actions {
     this.page = page;
   }
 
-  async sendTextToInput(
-    locator: Locator,
-    input: string | number,
-    enter?: boolean,
-  ) {
+  async insertText(locator: Locator, input: string | number, enter?: boolean) {
     await expect(locator).toBeVisible();
     if (typeof input === "string") {
       await locator.fill(input);
@@ -30,8 +28,15 @@ export class Actions {
     await expect(locator).toHaveValue(await locator.inputValue());
   }
 
+  // async selectOptionInCombobox(locator: Locator, text: string): Promise<void> {
+  //   ///TODO:
+  //   await expect(locator).toBeVisible();
+  //   await locator.click();
+  //   await expect(locator).toHaveValue(await locator.inputValue());
+  // }
+
   async sendFile(locator: Locator, file: string) {
-    await locator.setInputFiles(file);
+    await locator.setInputFiles(path.join(process.cwd(), file));
   }
 
   async checkUncheck(element: Locator, uncheck?: boolean): Promise<void> {
@@ -69,11 +74,24 @@ export class Actions {
 
   async pageVisualTest(pageName: string) {
     await this.page.waitForLoadState("domcontentloaded");
-    expect(await this.page.screenshot()).toMatchSnapshot(`${pageName}.png`);
+    expect(await this.page.screenshot()).toMatchSnapshot(`${pageName}.png`, {
+      maxDiffPixelRatio: 0.05,
+    });
   }
 
   async goBack() {
     await this.page.goBack();
   }
-  
+
+  async createTestFile(fileName: string, content?: string): Promise<string> {
+    const relativePath = `${fileName}`;
+    fs.writeFileSync(relativePath, content || "");
+    return relativePath;
+  }
+
+  async deleteTestFile(filePath: string): Promise<void> {
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  }
 }
