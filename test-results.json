@@ -46,7 +46,7 @@
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 120000
+        "timeout": 240000
       }
     ],
     "shard": null,
@@ -59,33 +59,33 @@
   },
   "suites": [
     {
-      "title": "ToolShopTests\\searchToolsTests.spec.ts",
-      "file": "ToolShopTests/searchToolsTests.spec.ts",
+      "title": "ToolShopTests\\concatPageTests.spec.ts",
+      "file": "ToolShopTests/concatPageTests.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "Filter by price range between 190 and 200",
+          "title": "Contact form test",
           "ok": true,
           "tags": [],
           "tests": [
             {
-              "timeout": 120000,
+              "timeout": 240000,
               "annotations": [],
               "expectedStatus": "passed",
               "projectId": "chromium",
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 14,
+                  "workerIndex": 7,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 93074,
+                  "duration": 4392,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-04-02T19:48:13.019Z",
+                  "startTime": "2026-04-05T19:20:31.388Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -93,9 +93,9 @@
               "status": "expected"
             }
           ],
-          "id": "deca6098995c0c792238-2a45dbef094413ffc051",
-          "file": "ToolShopTests/searchToolsTests.spec.ts",
-          "line": 76,
+          "id": "7368f4b0e35d3b3d007a-ed7670c6bb69e46aa606",
+          "file": "ToolShopTests/concatPageTests.spec.ts",
+          "line": 6,
           "column": 5
         }
       ]
@@ -103,8 +103,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-04-02T19:48:10.292Z",
-    "duration": 95906.15500000026,
+    "startTime": "2026-04-05T19:20:27.884Z",
+    "duration": 7997.47900000005,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
