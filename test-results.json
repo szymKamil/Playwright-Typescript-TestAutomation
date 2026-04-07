@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 2
+      "actualWorkers": 1
     },
     "preserveOutput": "always",
     "reporter": [
@@ -37,7 +37,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 2
+          "actualWorkers": 1
         },
         "id": "chromium",
         "name": "chromium",
@@ -51,21 +51,21 @@
     ],
     "shard": null,
     "tags": [],
-    "updateSnapshots": "changed",
-    "updateSourceMethod": "patch",
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "3way",
     "version": "1.57.0",
-    "workers": 6,
+    "workers": 1,
     "webServer": null
   },
   "suites": [
     {
-      "title": "ToolShopTests\\concatPageTests.spec.ts",
-      "file": "ToolShopTests/concatPageTests.spec.ts",
+      "title": "ToolShopTests\\loginTest.spec.ts",
+      "file": "ToolShopTests/loginTest.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "Verify contact form page elements",
+          "title": "Verify login form elements",
           "ok": true,
           "tags": [],
           "tests": [
@@ -77,15 +77,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 5,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 8806,
+                  "duration": 3237,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-04-05T19:25:47.631Z",
+                  "startTime": "2026-04-07T13:17:13.490Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -93,43 +93,9 @@
               "status": "expected"
             }
           ],
-          "id": "7368f4b0e35d3b3d007a-d7462ddb1fb3ea404281",
-          "file": "ToolShopTests/concatPageTests.spec.ts",
-          "line": 7,
-          "column": 5
-        },
-        {
-          "title": "Contact form test",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 240000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 1,
-                  "parallelIndex": 1,
-                  "status": "passed",
-                  "duration": 11022,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-04-05T19:25:47.596Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "7368f4b0e35d3b3d007a-ed7670c6bb69e46aa606",
-          "file": "ToolShopTests/concatPageTests.spec.ts",
-          "line": 17,
+          "id": "5fdbda5bd5c2945e2f10-ee96fbb67c34bce6ee83",
+          "file": "ToolShopTests/loginTest.spec.ts",
+          "line": 9,
           "column": 5
         }
       ]
@@ -137,9 +103,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-04-05T19:25:46.132Z",
-    "duration": 74492.915,
-    "expected": 2,
+    "startTime": "2026-04-07T13:17:10.276Z",
+    "duration": 7431.199999999953,
+    "expected": 1,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
