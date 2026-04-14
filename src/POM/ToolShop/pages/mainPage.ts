@@ -26,7 +26,7 @@ export class MainPage {
   }
 
   public async goto(){
-    await this.page.goto('https://practicesoftwaretesting.com/');
+    await this.page.goto('');
   }
 
   async verifyMainPage() {
