@@ -1,4 +1,4 @@
-import { MainPage } from "../../src/POM/ToolShop/pages/mainPage";
+import { MainPage } from "../../src/POM/ToolShop/pages/MainPage";
 import { test } from "@playwright/test";
 import * as constans from "../../src/POM/ToolShop/utils/constans";
 import { CategoriesOptions } from "../../src/POM/ToolShop/components/NavBar";

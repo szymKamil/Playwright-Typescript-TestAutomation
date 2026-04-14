@@ -7,6 +7,7 @@ import { ProductList } from "../components/ProductList";
 import { CategoryTreeFilter } from '../components/CategoryTreeFilter'
 
 export class MainPage {
+  readonly page: Page;
   readonly navBar: NavBarComponent;
   readonly logger: Logger;
   readonly actions: Actions;
@@ -15,12 +16,17 @@ export class MainPage {
   readonly categoryTree: CategoryTreeFilter;
 
   constructor(page: Page) {
+    this.page = page;
     this.navBar = new NavBarComponent(page);
     this.logger = new Logger();
     this.actions = new Actions(page);
     this.search = new SearchFunctions(page);
     this.productList = new ProductList(page);
     this.categoryTree = new CategoryTreeFilter(page);
+  }
+
+  public async goto(){
+    await this.page.goto('https://practicesoftwaretesting.com/');
   }
 
   async verifyMainPage() {

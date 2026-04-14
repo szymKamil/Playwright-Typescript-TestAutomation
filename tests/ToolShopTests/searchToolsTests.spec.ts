@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import * as constans from "../../src/POM/ToolShop/utils/constans";
-import { MainPage } from "../../src/POM/ToolShop/pages/mainPage";
+import { MainPage } from "../../src/POM/ToolShop/pages/MainPage";
 import { SortingTypes } from "../../src/POM/ToolShop/components/SearchFilter";
 import * as utils from "../../src/POM/ToolShop/utils/utils";
 import { ProductCard } from "../../src/POM/ToolShop/components/ProductCard";
