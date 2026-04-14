@@ -49,18 +49,18 @@ export class NavBarComponent {
 
   public async home(): Promise<void> {
     await this.homeBtn.click();
-    await expect(this.page).toHaveURL(constants.url);
+    await expect(this.page).toHaveURL(constants.TOOLSHOP_URL);
   }
 
   public async contact(): Promise<Contact> {
     await this.contacBtn.click();
-    await expect(this.page).toHaveURL(constants.url.concat("contact"));
+    await expect(this.page).toHaveURL("/contact");
     return new Contact(this.page);
   }
 
   public async singIn(): Promise<SignIn> {
     await this.signInBtn.click();
-    await expect(this.page).toHaveURL(constants.url.concat("auth/login"));
+    await expect(this.page).toHaveURL("/auth/login");
     return new SignIn(this.page);
   }
 

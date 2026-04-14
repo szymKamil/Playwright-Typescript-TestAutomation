@@ -1,8 +1,8 @@
-import { th } from "@faker-js/faker/.";
 import { Locator, Page } from "@playwright/test";
 import { Actions } from "src/_Tools/Actions";
 
 export class SignIn {
+  private readonly page: Page;
   readonly actions: Actions;
   readonly googleBtnLogin: Locator;
   readonly emailAdressInput: Locator;
@@ -13,6 +13,7 @@ export class SignIn {
   readonly forgotPassword: Locator;
 
   constructor(page: Page) {
+    this.page = page;
     this.actions = new Actions(page);
     this.googleBtnLogin = page.getByRole("button", {
       name: "Sign in with Google",
@@ -25,6 +26,10 @@ export class SignIn {
     this.forgotPassword = page.locator('[data-test="forgot-password-link"]');
   }
 
+  public async goto(){
+    await this.page.goto('/auth/login')
+  }
+
   async verifyLoginFormElements() {
     await this.googleBtnLogin.waitFor({ state: "visible" });
     await this.emailAdressInput.waitFor({ state: "visible" });
@@ -35,13 +40,9 @@ export class SignIn {
     await this.forgotPassword.waitFor({ state: "visible" });
   }
 
-  async logIn(email?: string, password?: string) {
-    if (!email || !password) {
-      throw new Error("Email lub hasło undefined");
-    } else  if (email !== undefined && password !== undefined) {
+  async logIn(email: string, password: string) {
       await this.actions.insertText(this.emailAdressInput, email);
       await this.actions.insertText(this.passwordInput, password);
       await this.loginBtn.click();
-    }
   }
 }
