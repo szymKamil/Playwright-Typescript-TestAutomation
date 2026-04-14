@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import * as constans from "../../src/POM/ToolShop/utils/constans";
-import { MainPage } from "../../src/POM/ToolShop/pages/mainPage";
+import { MainPage } from "../../src/POM/ToolShop/pages/MainPage";
 import { SortingTypes } from "../../src/POM/ToolShop/components/SearchFilter";
 import * as utils from "../../src/POM/ToolShop/utils/utils";
 import { ProductCard } from "../../src/POM/ToolShop/components/ProductCard";
@@ -46,7 +46,7 @@ test("Sorting test", async ({ page }) => {
   await mainPage.search.sortBy(SortingTypes.NameZA);
 });
 
-//TODO: weryfikacja ceny 
+//TODO: weryfikacja ceny
 // test("Sorting test", async ({ page }) => {
 //   await page.goto(constans.url);
 //   const mainPage = new MainPage(page);
@@ -80,14 +80,12 @@ test("Filter by price range between 190 and 200", async ({ page }) => {
   await mainPage.productList.checkDisplayedProducts(0);
 });
 
-
 test.fail("Failed search test", async ({ page }) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
   await mainPage.search.search("sas24tfgfdb");
   await mainPage.productList.checkDisplayedProducts("pliers");
 });
-
 
 test("Filter test category and brand", async ({ page }) => {
   await page.goto(constans.url);
@@ -100,11 +98,25 @@ test("Filter test category and brand", async ({ page }) => {
   await productCard.exitCard();
 });
 
-test('Filter by category and changing page', async ({ page }) => {
+test("Filter by category and changing page", async ({ page }) => {
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
   await mainPage.categoryTree.pickCategoryByName("Screwdriver");
   await mainPage.productList.checkDisplayedProducts("Screwdriver");
   await mainPage.navBar.pickCategory(CategoriesOptions.HandTools);
   await mainPage.categoryTree.isCategorySelected("Screwdriver", false);
-})
+});
+
+test("Open empty category", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.navBar.pickCategory(CategoriesOptions.SpecialTools);
+  await mainPage.productList.verifyProductListIsEmpty();
+});
+
+
+test("Brand category filter test", async ({ page }) => {
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.categoryTree.assertBrandFilterContain2Options();
+});

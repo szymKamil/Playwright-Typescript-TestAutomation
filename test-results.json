@@ -59,14 +59,14 @@
   },
   "suites": [
     {
-      "title": "ToolShopTests\\loginTest.spec.ts",
-      "file": "ToolShopTests/loginTest.spec.ts",
+      "title": "ToolShopTests\\searchToolsTests.spec.ts",
+      "file": "ToolShopTests/searchToolsTests.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "Verify login form elements",
-          "ok": true,
+          "title": "Brand category filter test",
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -77,25 +77,55 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 5,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 3237,
-                  "errors": [],
+                  "status": "failed",
+                  "duration": 16167,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('group', { name: 'Brands' }).getByRole('checkbox')\nExpected: \u001b[32m2\u001b[39m\nReceived: \u001b[31m10\u001b[39m\nTimeout:  15000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('group', { name: 'Brands' }).getByRole('checkbox')\u001b[22m\n\u001b[2m    18 × locator resolved to 10 elements\u001b[22m\n\u001b[2m       - unexpected value \"10\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('group', { name: 'Brands' }).getByRole('checkbox')\nExpected: \u001b[32m2\u001b[39m\nReceived: \u001b[31m10\u001b[39m\nTimeout:  15000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('group', { name: 'Brands' }).getByRole('checkbox')\u001b[22m\n\u001b[2m    18 × locator resolved to 10 elements\u001b[22m\n\u001b[2m       - unexpected value \"10\"\u001b[22m\n\n    at CategoryTreeFilter.assertBrandFilterContain2Options (D:\\Programowanie\\Testy\\PlaywrightTS\\src\\POM\\ToolShop\\components\\CategoryTreeFilter.ts:52:56)\n    at D:\\Programowanie\\Testy\\PlaywrightTS\\tests\\ToolShopTests\\searchToolsTests.spec.ts:121:31",
+                    "location": {
+                      "file": "D:\\Programowanie\\Testy\\PlaywrightTS\\src\\POM\\ToolShop\\components\\CategoryTreeFilter.ts",
+                      "column": 56,
+                      "line": 52
+                    },
+                    "snippet": "\u001b[90m   at \u001b[39m..\\src\\POM\\ToolShop\\components\\CategoryTreeFilter.ts:52\n\n\u001b[0m \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mpublic\u001b[39m \u001b[36masync\u001b[39m assertBrandFilterContain2Options(){\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m     \u001b[36mawait\u001b[39m expect(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mbrandTree\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"checkbox\"\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m2\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m   }\n \u001b[90m 54 |\u001b[39m\n \u001b[90m 55 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\Programowanie\\Testy\\PlaywrightTS\\src\\POM\\ToolShop\\components\\CategoryTreeFilter.ts",
+                        "column": 56,
+                        "line": 52
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('group', { name: 'Brands' }).getByRole('checkbox')\nExpected: \u001b[32m2\u001b[39m\nReceived: \u001b[31m10\u001b[39m\nTimeout:  15000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('group', { name: 'Brands' }).getByRole('checkbox')\u001b[22m\n\u001b[2m    18 × locator resolved to 10 elements\u001b[22m\n\u001b[2m       - unexpected value \"10\"\u001b[22m\n\n\n\u001b[90m   at \u001b[39m..\\src\\POM\\ToolShop\\components\\CategoryTreeFilter.ts:52\n\n\u001b[0m \u001b[90m 50 |\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mpublic\u001b[39m \u001b[36masync\u001b[39m assertBrandFilterContain2Options(){\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m     \u001b[36mawait\u001b[39m expect(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mbrandTree\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"checkbox\"\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m2\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m   }\n \u001b[90m 54 |\u001b[39m\n \u001b[90m 55 |\u001b[39m\u001b[0m\n\u001b[2m    at CategoryTreeFilter.assertBrandFilterContain2Options (D:\\Programowanie\\Testy\\PlaywrightTS\\src\\POM\\ToolShop\\components\\CategoryTreeFilter.ts:52:56)\u001b[22m\n\u001b[2m    at D:\\Programowanie\\Testy\\PlaywrightTS\\tests\\ToolShopTests\\searchToolsTests.spec.ts:121:31\u001b[22m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-04-07T13:17:13.490Z",
+                  "startTime": "2026-04-07T13:52:50.120Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\Programowanie\\Testy\\PlaywrightTS\\test-results\\ToolShopTests-searchToolsTests-Brand-category-filter-test-chromium\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\Programowanie\\Testy\\PlaywrightTS\\src\\POM\\ToolShop\\components\\CategoryTreeFilter.ts",
+                    "column": 56,
+                    "line": 52
+                  }
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             }
           ],
-          "id": "5fdbda5bd5c2945e2f10-ee96fbb67c34bce6ee83",
-          "file": "ToolShopTests/loginTest.spec.ts",
-          "line": 9,
+          "id": "deca6098995c0c792238-bc9b934dbd0fd3ec4cfa",
+          "file": "ToolShopTests/searchToolsTests.spec.ts",
+          "line": 118,
           "column": 5
         }
       ]
@@ -103,11 +133,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-04-07T13:17:10.276Z",
-    "duration": 7431.199999999953,
-    "expected": 1,
+    "startTime": "2026-04-07T13:52:44.050Z",
+    "duration": 22365.628000000026,
+    "expected": 0,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }

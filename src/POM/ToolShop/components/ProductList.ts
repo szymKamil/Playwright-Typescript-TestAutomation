@@ -8,6 +8,7 @@ export class ProductList {
   readonly productPrice: Locator;
   readonly productStockStatus: Locator;
   readonly pagination: Locator;
+  readonly emptyProductListMessage: Locator;
 
   constructor(page: Page) {
     this.productListCard = page.locator("a.card");
@@ -21,6 +22,9 @@ export class ProductList {
       "span[data-test='out-of-stock']",
     );
     this.pagination = page.locator("ul.pagination");
+    this.emptyProductListMessage = page.getByText(
+      "There are no products found.",
+    );
   }
 
   // ====== Functions ======
@@ -40,6 +44,10 @@ export class ProductList {
         await func();
       }
     }
+  }
+
+  async verifyProductListIsEmpty() {
+    await expect(this.emptyProductListMessage).toBeVisible();
   }
 
   async getNumOfDisplayedProducts(): Promise<number> {

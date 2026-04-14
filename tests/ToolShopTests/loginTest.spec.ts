@@ -3,8 +3,8 @@ import * as constans from "src/POM/ToolShop/utils/constans";
 import { MainPage } from "src/POM/ToolShop/pages/MainPage";
 import { SignIn } from "src/POM/ToolShop/pages/SignIn";
 import { DashboardPage } from "src/POM/ToolShop/pages/DashBoardPage";
-import * as dotenv from 'dotenv';
-
+import * as dotenv from "dotenv";
+import { MyAccountPage } from "src/POM/ToolShop/pages/MyAccountPage";
 
 test("Verify login form elements", async ({ page }) => {
   await page.goto(constans.url);
@@ -14,7 +14,7 @@ test("Verify login form elements", async ({ page }) => {
   await signInPage.verifyLoginFormElements();
 });
 
-test("Log in to admin user", async ({ page }) => {
+test("Log in as admin", async ({ page }) => {
   dotenv.config();
   await page.goto(constans.url);
   const mainPage = new MainPage(page);
@@ -26,4 +26,18 @@ test("Log in to admin user", async ({ page }) => {
   );
   const dashBoardPage = new DashboardPage(page);
   await dashBoardPage.verifyDashboardPageVisible();
+});
+
+test("Log in as user", async ({ page }) => {
+  dotenv.config();
+  await page.goto(constans.url);
+  const mainPage = new MainPage(page);
+  await mainPage.navBar.singIn();
+  const signInPage = new SignIn(page);
+  await signInPage.logIn(
+    process.env.TOOLSHOP_USER1_LOGIN,
+    process.env.TOOLSHOP_USER1_PASSWORD,
+  );
+  const myAccountPage = new MyAccountPage(page);
+  await myAccountPage.verifyMyAccountPageVisible();
 });

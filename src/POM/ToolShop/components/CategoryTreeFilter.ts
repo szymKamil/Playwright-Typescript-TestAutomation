@@ -48,6 +48,10 @@ export class CategoryTreeFilter {
      await expect(this.brandTree.getByText(option)).toBeChecked({checked: true});
   }
 
+  public async assertBrandFilterContain2Options(){
+    await expect(this.brandTree.getByRole("checkbox")).toHaveCount(2);
+  }
+
 
   
 
