@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import { test } from "../ToolShopTests/Fixture/base.fixture";
-import { Contact } from "../../src/POM/ToolShop/pages/Contact";
+
 
 test("Verify contact form page elements", async ({
   mainPage,

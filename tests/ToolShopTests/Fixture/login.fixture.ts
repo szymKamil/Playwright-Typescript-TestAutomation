@@ -33,7 +33,7 @@ export const test = base.extend<Auth>({
       baseURL: `${constants.TOOLSHOP_API}`,
     });
     const response = await context.post("/users/login", {
-      headers: {
+      data: {
         email: credentials.email,
         password: credentials.password,
       },
