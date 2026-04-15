@@ -1,5 +1,9 @@
+//import 'env'; 
+import * as dotenv from 'dotenv';
 import { defineConfig, devices } from '@playwright/test';
 import { TOOLSHOP_URL, BONIGARCIA_URL } from "src/POM/ToolShop/utils/constans"
+
+dotenv.config();
 
 /**
  * Read environment variables from file.

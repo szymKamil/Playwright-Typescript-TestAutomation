@@ -30,6 +30,7 @@ export class NavBarComponent {
   readonly localeBtn: Locator;
   readonly logoImg: Locator;
   readonly bannerImg: Locator;
+  readonly loggedUserMenu: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -45,6 +46,7 @@ export class NavBarComponent {
       name: "Practice Software Testing -",
     });
     this.bannerImg = page.getByRole("img", { name: "Banner" });
+    this.loggedUserMenu = page.locator("#menu");
   }
 
   public async home(): Promise<void> {
@@ -72,7 +74,7 @@ export class NavBarComponent {
     await expect(this.categoriesBtn).toBeVisible();
     await this.categoriesBtn.click();
     await expect(this.categoriesContainer).toBeVisible();
-    const urlSlug = option.toLowerCase().replace(/\s+/g, '-');
+    const urlSlug = option.toLowerCase().replace(/\s+/g, "-");
     await Promise.all([
       this.page.waitForURL(`**/${urlSlug}`),
       this.categoriesContainer.getByText(option).click(),
@@ -82,7 +84,11 @@ export class NavBarComponent {
   /**
    * Interface test
    */
-  async verifyElementsPage(element: Locator) {
+  public async verifyElementsPage(element: Locator) {
     await expect(element).toBeVisible();
+  }
+
+  public async verifyUserLogged(name: string): Promise<void> {
+      await expect(this.loggedUserMenu).toHaveText(name);
   }
 }

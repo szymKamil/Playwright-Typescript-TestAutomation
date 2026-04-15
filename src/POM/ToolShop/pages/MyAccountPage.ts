@@ -1,17 +1,15 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { verify } from "node:crypto";
-
-
+import { text } from "node:stream/consumers";
 
 export class MyAccountPage {
+  readonly myAccountHeader: Locator;
 
-    readonly myAccountHeader: Locator;
+  constructor(public page: any) {
+    this.myAccountHeader = page.getByRole("heading", { name: "My account" });
+  }
 
-    constructor(public page: any) {
-        this.myAccountHeader = page.getByText("My Account");
-    }
-
-    async verifyMyAccountPageVisible() {
-        await expect(this.myAccountHeader).toBeVisible();
-    }
+  async verifyMyAccountPageVisible() {
+    await expect(this.myAccountHeader).toBeVisible();
+  }
 }
