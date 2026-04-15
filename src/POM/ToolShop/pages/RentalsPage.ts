@@ -1,10 +1,10 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { Actions } from "../../../_Tools/Actions";
-import { MainPage } from "./MainPage";
+import { Main } from "./MainPage";
 import { CategoriesOptions } from "../components/NavBar";
 
 export class RentalsPage {
-  private readonly mainPage: MainPage;
+  private readonly mainPage: Main;
   readonly page: Page;
   readonly actions: Actions;
   readonly rentalProductCard: Locator;
@@ -14,7 +14,7 @@ export class RentalsPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.mainPage = new MainPage(page);
+    this.mainPage = new Main(page);
     this.actions = new Actions(page);
     this.rentalProductCard = page.locator("div.card");
     this.rentalProductImage = this.rentalProductCard.getByRole("img");

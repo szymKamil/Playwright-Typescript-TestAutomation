@@ -4,9 +4,9 @@ import { Logger } from "../../../_Tools/Logger";
 import { Actions } from "../../../_Tools/Actions";
 import { SearchFunctions } from "../components/SearchFilter";
 import { ProductList } from "../components/ProductList";
-import { CategoryTreeFilter } from '../components/CategoryTreeFilter'
+import { CategoryTreeFilter } from "../components/CategoryTreeFilter";
 
-export class MainPage {
+export class Main {
   readonly page: Page;
   readonly navBar: NavBarComponent;
   readonly logger: Logger;
@@ -25,8 +25,8 @@ export class MainPage {
     this.categoryTree = new CategoryTreeFilter(page);
   }
 
-  public async goto(){
-    await this.page.goto('');
+  public async goto() {
+    await this.page.goto("");
   }
 
   async verifyMainPage() {
@@ -59,12 +59,4 @@ export class MainPage {
       },
     );
   }
-
-    
-
-
-
-
-
 }
-

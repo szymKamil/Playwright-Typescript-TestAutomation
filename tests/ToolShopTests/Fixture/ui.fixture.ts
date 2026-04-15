@@ -1,7 +1,4 @@
-import { SignIn } from "src/POM/ToolShop/pages/SignIn";
 import { test as base } from "./apiFixtures";
-import { APIRequestContext, request, expect } from "@playwright/test";
-import * as constants from "../../../src/POM/ToolShop/utils/constans";
 
 
 type UIFixtures = {

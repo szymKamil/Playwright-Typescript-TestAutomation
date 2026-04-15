@@ -1,9 +1,8 @@
 import { expect } from "@playwright/test";
 import { test } from "../ToolShopTests/Fixture/base.fixture";
 
-
 test("Verify contact form page elements", async ({
-  mainPage,
+  main: mainPage,
   contactPage,
 }) => {
   await mainPage.goto();
@@ -11,7 +10,7 @@ test("Verify contact form page elements", async ({
   await contactPage.verifyContactPageElements();
 });
 
-test("Contact form test", async ({ mainPage, contactPage }) => {
+test("Contact form test", async ({ main: mainPage, contactPage }) => {
   await mainPage.goto();
   await mainPage.navBar.contact();
   const testFile = await contactPage.actions.createTestFile("testFile.txt");

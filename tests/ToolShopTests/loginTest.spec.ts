@@ -1,53 +1,35 @@
-import { test } from "@playwright/test";
-import { MainPage } from "src/POM/ToolShop/pages/MainPage";
-import { SignIn } from "src/POM/ToolShop/pages/SignIn";
-import { DashboardPage } from "src/POM/ToolShop/pages/DashBoardPage";
-import * as dotenv from "dotenv";
-import { MyAccountPage } from "src/POM/ToolShop/pages/MyAccountPage";
-import { test as fixTest } from "tests/ToolShopTests/Fixture/apiFixtures";
-import * as constans from "src/POM/ToolShop/utils/constans";
-import { test as uiTests } from "tests/ToolShopTests/Fixture/ui.fixture";
+import { test } from "tests/ToolShopTests/Fixture/ui.fixture";
+import * as constants from "../../src/POM/ToolShop/utils/constans";
 
-test("Verify login form elements", async ({ page }) => {
-  await page.goto(constans.TOOLSHOP_URL);
-  const mainPage = new MainPage(page);
-  await mainPage.navBar.singIn();
-  const signInPage = new SignIn(page);
-  await signInPage.verifyLoginFormElements();
+test("Verify login form elements", async ({ main, signIn }) => {
+  await main.navBar.singIn();
+  await signIn.verifyLoginFormElements();
 });
 
-test("Log in as admin in UI", async ({ page }) => {
-  dotenv.config();
-  await page.goto(constans.TOOLSHOP_URL);
-  const mainPage = new MainPage(page);
-  await mainPage.navBar.singIn();
-  const signInPage = new SignIn(page);
-  await signInPage.logIn(
-    process.env.TOOLSHOP_ADMIN_LOGIN!,
-    process.env.TOOLSHOP_ADMIN_PASSWORD!,
-  );
-  const dashBoardPage = new DashboardPage(page);
-  await dashBoardPage.verifyDashboardPageVisible();
+test.describe("UI test with user", () => {
+  test.use({ userType: "admin" });
+  test("Log in as admin in UI", async ({ main, signIn, dashboard }) => {
+    await main.goto();
+    await main.navBar.singIn();
+    await signIn.logIn(
+      constants.users.admin.email!,
+      constants.users.admin.password!,
+    );
+    await dashboard.verifyDashboardPageVisible();
+  });
 });
 
-uiTests.describe("UI test with user", () => {
-  uiTests.use({ userType: "user1" });
-  uiTests(
-    "Log in as user in UI",
-    async ({ page, mainPage, signIn, loggUserUI }) => {
-      const myAccountPage = new MyAccountPage(page);
-      await myAccountPage.verifyMyAccountPageVisible();
-    },
-  );
+test.describe("UI test with user", () => {
+  test.use({ userType: "user1" });
+  test("Log in as user in UI", async ({ myAccount, loggUserUI }) => {
+    await myAccount.verifyMyAccountPageVisible();
+  });
 });
 
-uiTests.describe("Log in  as admin using API", () => {
-  uiTests.use({ userType: "admin" });
-  fixTest(
-    "Log in  as admin using API",
-    async ({ mainPage, navBar, loggUserAPI }) => {
-      await mainPage.goto();
-      await navBar.verifyUserLogged("John Doe");
-    },
-  );
+test.describe("Log in  as admin using API", () => {
+  test.use({ userType: "admin" });
+  test("Log in  as admin using API", async ({ main, navBar, loggUserAPI }) => {
+    await main.goto();
+    await navBar.verifyUserLogged("John Doe");
+  });
 });
