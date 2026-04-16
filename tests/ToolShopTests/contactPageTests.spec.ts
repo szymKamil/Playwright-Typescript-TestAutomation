@@ -1,20 +1,20 @@
 import { expect } from "@playwright/test";
-import { test } from "../ToolShopTests/Fixture/base.fixture";
+import { test } from "@fixtures/ui.fixture";
 
 test("Verify contact form page elements", async ({
-  main: mainPage,
-  contactPage,
+  main,
+  contact
 }) => {
-  await mainPage.goto();
-  await mainPage.navBar.contact();
-  await contactPage.verifyContactPageElements();
+  await main.goto();
+  await main.navBar.contact();
+  await contact.verifyContactPageElements();
 });
 
-test("Contact form test", async ({ main: mainPage, contactPage }) => {
-  await mainPage.goto();
-  await mainPage.navBar.contact();
-  const testFile = await contactPage.actions.createTestFile("testFile.txt");
-  await contactPage.fillContactForm(
+test("Contact form test", async ({ main, contact }) => {
+  await main.goto();
+  await main.navBar.contact();
+  const testFile = await contact.actions.createTestFile("testFile.txt");
+  await contact.fillContactForm(
     "John",
     "Doe",
     "john.doe@example.com",
@@ -22,7 +22,7 @@ test("Contact form test", async ({ main: mainPage, contactPage }) => {
     "Hello, I have a question about your products. Now i will insert some random words to make this message longer. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     testFile,
   );
-  await contactPage.submitForm();
-  await expect(contactPage.contactSucessMessage).toBeVisible();
-  await contactPage.actions.deleteTestFile(testFile);
+  await contact.submitForm();
+  await expect(contact.contactSucessMessage).toBeVisible();
+  await contact.actions.deleteTestFile(testFile);
 });

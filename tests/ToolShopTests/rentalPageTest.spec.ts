@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import * as constans from "../../src/POM/ToolShop/utils/constans";
-import { Main } from "../../src/POM/ToolShop/pages/MainPage";
+import { Main } from "../../src/POM/ToolShop/pages/page";
 import { CategoriesOptions } from "../../src/POM/ToolShop/components/NavBar";
 import { RentalsPage } from "../../src/POM/ToolShop/pages/RentalsPage";
 

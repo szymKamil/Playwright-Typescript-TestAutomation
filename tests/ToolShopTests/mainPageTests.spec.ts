@@ -1,16 +1,15 @@
-import { Main } from "../../src/POM/ToolShop/pages/MainPage";
-import { test } from "@playwright/test";
-import * as constans from "../../src/POM/ToolShop/utils/constans";
+import { test } from "@fixtures/ui.fixture";
 import { CategoriesOptions } from "../../src/POM/ToolShop/components/NavBar";
 
-test("Main page verification", async ({ page }) => {
-  await page.goto(constans.url);
-  const mainPage = new Main(page);
-  await mainPage.verifyMainPage();
+test("Main page verification", async ({ main }) => {
+  await main.goto();
+  await main.verifyPageUIElements();
+  await main.actions.pageVisualTest("toolShopMainPage");
 });
 
-test("Power tools category change", async ({ page }) => {
-  await page.goto(constans.url);
-  const mainPage = new Main(page);
-  await mainPage.navBar.pickCategory(CategoriesOptions.HandTools);
+test("Change category page to 'Hand tools'", async ({ main }) => {
+  await main.goto();
+  await main.navBar.pickCategory(CategoriesOptions.HandTools);
+  await main.search.getPageTitle();
 });
+

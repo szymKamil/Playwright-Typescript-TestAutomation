@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { Actions } from "../../../_Tools/Actions";
-import { Main } from "./MainPage";
+import { Main } from "./page";
 import { CategoriesOptions } from "../components/NavBar";
 
 export class RentalsPage {

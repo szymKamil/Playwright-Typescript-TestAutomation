@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 
 export class ProductList {
+  readonly page: Page;
   readonly productListCard: Locator;
   readonly productImg: Locator;
   readonly productName: Locator;
@@ -11,6 +12,7 @@ export class ProductList {
   readonly emptyProductListMessage: Locator;
 
   constructor(page: Page) {
+    this.page = page;
     this.productListCard = page.locator("a.card");
     this.productName = this.productListCard.getByRole("heading");
     this.productImg = this.productListCard.getByRole("img");
@@ -27,11 +29,23 @@ export class ProductList {
     );
   }
 
+  private get activePage() {
+    const currentpageNum = this.page.locator('li.active');
+    return currentpageNum;
+  } 
+
   // ====== Functions ======
+  async getActivePage() {
+    const pageNum = await this.activePage.textContent();
+    console.log(`Current page is ${pageNum}`)
+    return pageNum;
+  } 
+
+
 
   async changePage(pageNumber: number) {
     await this.pagination
-      .getByRole("link", { name: pageNumber.toString() })
+      .getByRole("button", { name: pageNumber.toString() })
       .click();
   }
 

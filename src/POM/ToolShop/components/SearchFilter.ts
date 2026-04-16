@@ -21,6 +21,7 @@ export class SearchFunctions {
   readonly searchInput: Locator;
   readonly searchClear: Locator;
   readonly searchBtn: Locator;
+  readonly pageTitle: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -32,6 +33,17 @@ export class SearchFunctions {
     this.searchInput = page.getByRole("textbox", { name: "Search" });
     this.searchClear = page.getByRole("button", { name: "X" });
     this.searchBtn = page.getByRole("button", { name: "Search" });
+    this.pageTitle = page.getByRole('heading', {name: /Category:/});
+  }
+
+  public async getPageTitle(){
+    const pageTitle = await this.pageTitle.textContent();
+    const regex = /Category:\s(.+)/;
+    const pageCategoryTitle = pageTitle?.match(regex);
+    if (pageCategoryTitle) {
+      console.log(`Current page category is "${pageCategoryTitle[1]}"`)
+    }
+     return pageCategoryTitle ?? '';
   }
 
   public async sortBy(sort: SortingTypes) {
@@ -56,7 +68,6 @@ export class SearchFunctions {
   }
 
   public async setPriceRange(min?: number, max?: number) {
-    //TODO: XDDD
     const moveSlider = async (slider: Locator, steps: number) => {
       await slider.focus();
       const key = steps > 0 ? "ArrowRight" : "ArrowLeft";

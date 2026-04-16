@@ -1,14 +1,14 @@
 import { test } from "tests/ToolShopTests/Fixture/ui.fixture";
 import * as constants from "../../src/POM/ToolShop/utils/constans";
 
-test("Verify login form elements", async ({ main, signIn }) => {
+test("Verify login form elements", async ({ main, login: signIn }) => {
   await main.navBar.singIn();
   await signIn.verifyLoginFormElements();
 });
 
 test.describe("UI test with user", () => {
   test.use({ userType: "admin" });
-  test("Log in as admin in UI", async ({ main, signIn, dashboard }) => {
+  test("Log in as admin in UI", async ({ main, login: signIn, dashboard }) => {
     await main.goto();
     await main.navBar.singIn();
     await signIn.logIn(
@@ -33,3 +33,5 @@ test.describe("Log in  as admin using API", () => {
     await navBar.verifyUserLogged("John Doe");
   });
 });
+
+test("Registration test", async ({ main, login }) => {});

@@ -3,7 +3,7 @@ import { NavBarComponent } from "../components/NavBar";
 import { Logger } from "../../../_Tools/Logger";
 import { Actions } from "../../../_Tools/Actions";
 import { SearchFunctions } from "../components/SearchFilter";
-import { ProductList } from "../components/ProductList";
+import { ProductList } from "../components/product-table-list";
 import { CategoryTreeFilter } from "../components/CategoryTreeFilter";
 
 export class Main {
@@ -29,7 +29,7 @@ export class Main {
     await this.page.goto("");
   }
 
-  async verifyMainPage() {
+  async verifyPageUIElements() {
     await Logger.logStep("Veryfing main page elements", async () => {
       const elements = [
         this.navBar.homeBtn,
@@ -52,11 +52,5 @@ export class Main {
         "All of the elements in Home page are visible",
       );
     });
-    await Logger.logStep(
-      "Veryfing main page elements by screenshot",
-      async () => {
-        await this.actions.pageVisualTest("toolShopMainPage");
-      },
-    );
   }
 }
