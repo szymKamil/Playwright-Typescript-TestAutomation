@@ -1,29 +1,21 @@
-import { test, expect } from "@playwright/test";
-import * as constans from "../../src/POM/ToolShop/utils/constans";
-import { Main } from "../../src/POM/ToolShop/pages/page";
-import { CategoriesOptions } from "../../src/POM/ToolShop/components/NavBar";
-import { RentalsPage } from "../../src/POM/ToolShop/pages/RentalsPage";
+import { test } from "@fixtures/ui.fixture";
+import { CategoriesOptions } from "../../src/POM/ToolShop/components/navbar";
 
-test("Rental page tests", async ({ page }) => {
-  await page.goto(constans.url);
-  const mainPage = new Main(page);
-  const rentalPage = new RentalsPage(page);
-  await mainPage.navBar.pickCategory(CategoriesOptions.Rentals);
-  await rentalPage.verifyRentalsPage();
+test("Rental page tests", async ({ main, rental }) => {
+  await main.goto();
+  await main.navBar.pickCategory(CategoriesOptions.Rentals);
+  await rental.verifyRentalsPage();
 });
 
-test("Rental page tests with image interception", async ({ page }) => {
-  await page.goto(constans.url);
-  const mainPage = new Main(page);
-  const rentalPage = new RentalsPage(page);
-  await rentalPage.interceptImageRequests();
-  await mainPage.navBar.pickCategory(CategoriesOptions.Rentals);
-  await rentalPage.verifyRentalsPage("rentalsPageWithoutImages");
-  await rentalPage.verifyImageInterception();
+test("Rental page tests with image interception", async ({ main, rental }) => {
+  await main.goto();
+  await rental.interceptImageRequests();
+  await main.navBar.pickCategory(CategoriesOptions.Rentals);
+  await rental.verifyRentalsPage("rentalsPageWithoutImages");
+  await rental.verifyImageInterception();
 });
 
-test("Rental page tests with image loaded", async ({ page }) => {
-  await page.goto(constans.url);
-  const rentalPage = new RentalsPage(page);
-  await rentalPage.verifyImageLodaded();
+test("Rental page tests with image loaded", async ({ main, rental }) => {
+  await main.goto();
+  await rental.verifyImageLodaded();
 });

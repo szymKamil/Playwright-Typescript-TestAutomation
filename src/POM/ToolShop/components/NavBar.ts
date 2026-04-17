@@ -1,7 +1,8 @@
 import { expect, Locator, Page } from "@playwright/test";
 import * as constants from "../utils/constans";
-import { SignIn } from "../pages/SignIn";
-import { Contact } from "../pages/Contact";
+import { SignIn } from "../pages/login-page";
+import { Contact } from "../pages/contact-page";
+import { Actions } from "src/_Tools/Actions";
 
 export enum CategoriesOptions {
   HandTools = "Hand Tools",
@@ -22,6 +23,8 @@ enum Languages {
 
 export class NavBarComponent {
   readonly page: Page;
+  readonly actions: Actions;
+  readonly navDiv: Locator;
   readonly homeBtn: Locator;
   readonly categoriesBtn: Locator;
   readonly categoriesContainer: Locator;
@@ -34,12 +37,14 @@ export class NavBarComponent {
 
   constructor(page: Page) {
     this.page = page;
+    this.actions = new Actions(page);
+    this.navDiv = page.locator("#navbarSupportedContent");
     this.homeBtn = page.getByRole("menuitem", { name: "Home" });
     this.categoriesBtn = page.getByRole("menuitem", { name: "Categories" });
     this.categoriesContainer = page.getByRole("list", {
       name: "nav-categories",
     });
-    this.contacBtn = page.getByRole("menuitem", { name: "Contact" });
+    this.contacBtn = page.getByRole("menuitem", { name: /Contact|Kontakt/ });
     this.signInBtn = page.getByRole("menuitem", { name: "Sign in" });
     this.localeBtn = page.locator("#language");
     this.logoImg = page.getByRole("link", {
@@ -54,16 +59,14 @@ export class NavBarComponent {
     await expect(this.page).toHaveURL(constants.TOOLSHOP_URL);
   }
 
-  public async contact(): Promise<Contact> {
+  public async contact(): Promise<void> {
     await this.contacBtn.click();
     await expect(this.page).toHaveURL("/contact");
-    return new Contact(this.page);
   }
 
-  public async singIn(): Promise<SignIn> {
+  public async singIn(): Promise<void> {
     await this.signInBtn.click();
     await expect(this.page).toHaveURL("/auth/login");
-    return new SignIn(this.page);
   }
 
   public async changeLanguage(language: Languages) {
@@ -89,6 +92,10 @@ export class NavBarComponent {
   }
 
   public async verifyUserLogged(name: string): Promise<void> {
-      await expect(this.loggedUserMenu).toHaveText(name);
+    await expect(this.loggedUserMenu).toHaveText(name);
+  }
+
+  public async verifyNavTranslation(translation: Object) {
+    await this.actions.verifyTranslation(this.navDiv, translation);
   }
 }

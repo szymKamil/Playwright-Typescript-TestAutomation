@@ -8,6 +8,8 @@ type UIFixtures = {
   loggUserUI: void;
 };
 
+
+
 export const test = base.extend<UIFixtures>({
   loggUserUI: async ({ login: signIn, credentials }, use) => {
     await signIn.goto();

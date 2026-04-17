@@ -8,7 +8,8 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@fixtures/*": ["tests/ToolShopTests/Fixture/*"]
+      "@fixtures/*": ["tests/ToolShopTests/Fixture/*"],
+      "@utils/*": ["src/POM/ToolShop/utils"]
     }
   },
   "include": ["**/*.ts"],

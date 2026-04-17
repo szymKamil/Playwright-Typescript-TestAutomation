@@ -1,9 +1,9 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { Actions } from "../../../_Tools/Actions";
-import { Main } from "./page";
-import { CategoriesOptions } from "../components/NavBar";
+import { Main } from "./_base-page";
+import { CategoriesOptions } from "../components/navbar";
 
-export class RentalsPage {
+export class RentalPage {
   private readonly mainPage: Main;
   readonly page: Page;
   readonly actions: Actions;

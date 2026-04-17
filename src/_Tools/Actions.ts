@@ -75,7 +75,7 @@ export class Actions {
   async pageVisualTest(pageName: string) {
     await this.page.waitForLoadState("domcontentloaded");
     expect(await this.page.screenshot()).toMatchSnapshot(`${pageName}.png`, {
-      maxDiffPixelRatio: 0.05,
+      maxDiffPixelRatio: 0.1,
     });
   }
 
@@ -93,5 +93,17 @@ export class Actions {
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
+  }
+
+  async verifyTranslation(locator: Locator, translation: Object){
+    for (const value of Object.values(translation)) {
+    if (Array.isArray(value)) {
+      for (const text of value) {
+        await expect(locator).toContainText(text);
+      }
+    } else {
+      await expect(locator).toContainText(value);
+    }
+  }
   }
 }

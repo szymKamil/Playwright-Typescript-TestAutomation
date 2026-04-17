@@ -11,8 +11,9 @@ export enum SortingTypes {
   CORatingEA = "CO₂ Rating (E - A)",
 }
 
-export class SearchFunctions {
+export class Search {
   readonly page: Page;
+  readonly searchDiv: Locator;
   readonly actions: Actions;
   readonly sortLookup: Locator;
   readonly priceSlider: Locator;
@@ -26,6 +27,7 @@ export class SearchFunctions {
   constructor(page: Page) {
     this.page = page;
     this.actions = new Actions(page);
+    this.searchDiv = page.locator("#filters");
     this.sortLookup = page.getByRole("combobox", { name: "sort" });
     this.priceSlider = page.locator("css=ngx-slider.ngx-slider");
     this.priceRangeMin = page.locator("span.ngx-slider-pointer-min");
@@ -33,17 +35,17 @@ export class SearchFunctions {
     this.searchInput = page.getByRole("textbox", { name: "Search" });
     this.searchClear = page.getByRole("button", { name: "X" });
     this.searchBtn = page.getByRole("button", { name: "Search" });
-    this.pageTitle = page.getByRole('heading', {name: /Category:/});
+    this.pageTitle = page.getByRole("heading", { name: /Category:/ });
   }
 
-  public async getPageTitle(){
+  public async getPageTitle() {
     const pageTitle = await this.pageTitle.textContent();
     const regex = /Category:\s(.+)/;
     const pageCategoryTitle = pageTitle?.match(regex);
     if (pageCategoryTitle) {
-      console.log(`Current page category is "${pageCategoryTitle[1]}"`)
+      console.log(`Current page category is "${pageCategoryTitle[1]}"`);
     }
-     return pageCategoryTitle ?? '';
+    return pageCategoryTitle ?? "";
   }
 
   public async sortBy(sort: SortingTypes) {
@@ -93,10 +95,17 @@ export class SearchFunctions {
     if (min !== undefined && max !== undefined && min > maxHandle.value) {
       await moveSlider(maxHandle.handle, max - maxHandle.value);
       await moveSlider(minHandle.handle, min - minHandle.value);
-    } else if (min !== undefined && max !== undefined && max < minHandle.value) {
+    } else if (
+      min !== undefined &&
+      max !== undefined &&
+      max < minHandle.value
+    ) {
       await moveSlider(minHandle.handle, min - minHandle.value);
       await moveSlider(maxHandle.handle, max - maxHandle.value);
     }
-    
+  }
+
+  public async verifySearchTranslation(translation: Object) {
+    await this.actions.verifyTranslation(this.searchDiv, translation);
   }
 }

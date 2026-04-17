@@ -1,5 +1,5 @@
 import { test } from "@fixtures/ui.fixture";
-import { CategoriesOptions } from "../../src/POM/ToolShop/components/NavBar";
+import { CategoriesOptions } from "../../src/POM/ToolShop/components/navbar";
 
 test("Main page verification", async ({ main }) => {
   await main.goto();
@@ -12,4 +12,3 @@ test("Change category page to 'Hand tools'", async ({ main }) => {
   await main.navBar.pickCategory(CategoriesOptions.HandTools);
   await main.search.getPageTitle();
 });
-

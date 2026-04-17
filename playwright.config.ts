@@ -1,7 +1,7 @@
-//import 'env'; 
-import * as dotenv from 'dotenv';
-import { defineConfig, devices } from '@playwright/test';
-import { TOOLSHOP_URL, BONIGARCIA_URL } from "src/POM/ToolShop/utils/constans"
+//import 'env';
+import * as dotenv from "dotenv";
+import { defineConfig, devices } from "@playwright/test";
+import { TOOLSHOP_URL, BONIGARCIA_URL } from "src/POM/ToolShop/utils/constans";
 
 dotenv.config();
 
@@ -27,34 +27,44 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "html",
+  snapshotDir: "./__snapshots",
+  updateSnapshots: "missing",
+  snapshotPathTemplate:
+    "{snapshotDir}/{projectName}/{testFilePath}/{arg}{ext}",
+  expect: {
+    toMatchAriaSnapshot: {
+      pathTemplate:
+        "{snapshotDir}/{projectName}/aria/{testFilePath}/{arg}{ext}",
+    },
+  },
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'ToolShop',
+      name: "ToolShop",
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
         baseURL: TOOLSHOP_URL,
-        
       },
-      testDir: './tests/ToolShopTests'
+      testDir: "./tests/ToolShopTests",
     },
     {
-      name: 'BoniGarciaPages',
+      name: "BoniGarciaPages",
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
         baseURL: BONIGARCIA_URL,
       },
-      testDir: './tests/ToolShopTests'
+      testDir: "./tests/ToolShopTests",
     },
 
     // {

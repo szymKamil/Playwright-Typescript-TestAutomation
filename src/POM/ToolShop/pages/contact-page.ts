@@ -4,6 +4,7 @@ import { verify } from "crypto";
 
 export class Contact {
   readonly actions: Actions;
+  readonly contactDiv: Locator;
   readonly firstNameInput: Locator;
   readonly lastNameInput: Locator;
   readonly emailAdressInput: Locator;
@@ -15,15 +16,19 @@ export class Contact {
 
   constructor(page: Page) {
     this.actions = new Actions(page);
-    this.firstNameInput = page.getByRole("textbox", { name : "First name" });
-    this.lastNameInput = page.getByRole("textbox", { name : "Last name" });
-    this.emailAdressInput = page.getByRole("textbox", { name : "Email address" });
-    this.subjectInput = page.getByRole("combobox", { name : "Subject" });
-    this.messageInput = page.getByRole("textbox", { name : "Message" });
+    this.contactDiv = page.locator("form.ng-pristine");
+    this.firstNameInput = page.getByRole("textbox", { name: "First name" });
+    this.lastNameInput = page.getByRole("textbox", { name: "Last name" });
+    this.emailAdressInput = page.getByRole("textbox", {
+      name: "Email address",
+    });
+    this.subjectInput = page.getByRole("combobox", { name: "Subject" });
+    this.messageInput = page.getByRole("textbox", { name: "Message" });
     this.attachmentInput = page.getByRole("button", { name: "Attachment" });
     this.sendBtn = page.getByRole("button", { name: "Send" });
-    this.contactSucessMessage = page.getByText("Thanks for your message! We will contact you shortly.");
-
+    this.contactSucessMessage = page.getByText(
+      "Thanks for your message! We will contact you shortly.",
+    );
   }
 
   async verifyContactPageElements() {
@@ -35,8 +40,7 @@ export class Contact {
     await expect(this.attachmentInput).toBeVisible();
     await expect(this.sendBtn).toBeVisible();
     await this.actions.pageVisualTest("ContactPage");
-  };
-
+  }
 
   async insertFirstName(firstName: string) {
     await this.actions.insertText(this.firstNameInput, firstName);
@@ -82,6 +86,7 @@ export class Contact {
     await this.sendBtn.click();
   }
 
-
+  async verifyTranslation(translation: Object) {
+    await this.actions.verifyTranslation(this.contactDiv, translation);
+  }
 }
-

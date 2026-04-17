@@ -1,17 +1,17 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { NavBarComponent } from "../components/NavBar";
+import { NavBarComponent } from "../components/navbar";
 import { Logger } from "../../../_Tools/Logger";
 import { Actions } from "../../../_Tools/Actions";
-import { SearchFunctions } from "../components/SearchFilter";
+import { Search } from "../components/search-filter";
 import { ProductList } from "../components/product-table-list";
-import { CategoryTreeFilter } from "../components/CategoryTreeFilter";
+import { CategoryTreeFilter } from "../components/category-tree-filter";
 
 export class Main {
   readonly page: Page;
   readonly navBar: NavBarComponent;
   readonly logger: Logger;
   readonly actions: Actions;
-  readonly search: SearchFunctions;
+  readonly search: Search;
   readonly productList: ProductList;
   readonly categoryTree: CategoryTreeFilter;
 
@@ -20,7 +20,7 @@ export class Main {
     this.navBar = new NavBarComponent(page);
     this.logger = new Logger();
     this.actions = new Actions(page);
-    this.search = new SearchFunctions(page);
+    this.search = new Search(page);
     this.productList = new ProductList(page);
     this.categoryTree = new CategoryTreeFilter(page);
   }

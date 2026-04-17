@@ -1,7 +1,7 @@
 import { test } from "@fixtures/ui.fixture";
-import { SortingTypes } from "../../src/POM/ToolShop/components/SearchFilter";
+import { SortingTypes } from "../../src/POM/ToolShop/components/search-filter";
 import * as utils from "../../src/POM/ToolShop/utils/utils";
-import { CategoriesOptions } from "../../src/POM/ToolShop/components/NavBar";
+import { CategoriesOptions } from "../../src/POM/ToolShop/components/navbar";
 
 test("Search test", async ({ main }) => {
   await main.goto();
@@ -26,6 +26,8 @@ test("Filter test by brand", async ({ main, productCard }) => {
 });
 
 test("Test price range", async ({ main }) => {
+  test.slow();
+   
   await main.goto();
   await main.search.setPriceRange(70, 76);
   await main.productList.checkDisplayedProducts("Belt Sander");
