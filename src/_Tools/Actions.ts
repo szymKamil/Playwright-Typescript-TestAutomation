@@ -25,8 +25,10 @@ export class Actions {
   async typeText(locator: Locator, input: string | number, enter?: boolean) {
     await locator.waitFor({ state: 'visible' });
     if (typeof input === "string") {
+      await locator.selectText();
       await locator.pressSequentially(input);
     } else if (typeof input === "number") {
+      await locator.selectText();
       await locator.pressSequentially(input.toString());
     }
     if (enter) {

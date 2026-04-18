@@ -1,7 +1,8 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { Actions } from '../../../_Tools/Actions'
+import { Actions } from "../../../_Tools/Actions";
 
 export class ProductCard {
+  readonly page: Page;
   readonly actions: Actions;
   readonly cardImg: Locator;
   readonly cardProductName: Locator;
@@ -20,6 +21,7 @@ export class ProductCard {
   readonly relatedProductsMore: Locator;
 
   constructor(page: Page) {
+    this.page = page;
     this.actions = new Actions(page);
     this.cardImg = page.locator("img.figure-img");
     this.cardProductName = page.getByRole("heading");
@@ -50,7 +52,7 @@ export class ProductCard {
     });
   }
 
-  async exitCard(){
+  async exitCard() {
     await this.actions.goBack();
   }
 
@@ -77,8 +79,14 @@ export class ProductCard {
   }
 
   async assertProductBrand(brand: string) {
-    await this.categoryTag.filter({hasText: brand}).isVisible();
+    await this.categoryTag.filter({ hasText: brand }).isVisible();
   }
 
+  public async setQuantity(quantity: number) {
+    await this.actions.typeText(this.cardAmount, quantity);
+  }
 
+  public async addToCart() {
+    await this.cardAddToCartBtn.click();
+  }
 }

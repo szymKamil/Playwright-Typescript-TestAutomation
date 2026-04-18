@@ -1,6 +1,5 @@
 import { test } from "@fixtures/ui.fixture";
 import { CategoriesOptions } from "../../src/POM/ToolShop/components/navbar";
-import { ta_IN } from "@faker-js/faker/.";
 
 test(
   "Main page verification",
