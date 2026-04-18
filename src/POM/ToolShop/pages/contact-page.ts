@@ -2,6 +2,8 @@ import { Locator, Page, expect } from "@playwright/test";
 import { Actions } from "../../../_Tools/Actions";
 import { verify } from "crypto";
 
+type ErrorKey = keyof Contact["errorsMap"];
+
 export class Contact {
   readonly actions: Actions;
   readonly contactDiv: Locator;
@@ -13,6 +15,7 @@ export class Contact {
   readonly attachmentInput: Locator;
   readonly sendBtn: Locator;
   readonly contactSucessMessage: Locator;
+  readonly errorsMap;
 
   constructor(page: Page) {
     this.actions = new Actions(page);
@@ -29,6 +32,15 @@ export class Contact {
     this.contactSucessMessage = page.getByText(
       "Thanks for your message! We will contact you shortly.",
     );
+
+    //Errors
+    this.errorsMap = {
+      firstName: page.getByText("First name is required" ),
+      lastName: page.getByText("Last name is required" ),
+      email: page.getByText(" Email is required" ),
+      subject: page.getByText("Subject is required" ),
+      message: page.getByText("Message is required" ),
+    };
   }
 
   async verifyContactPageElements() {
@@ -88,5 +100,11 @@ export class Contact {
 
   async verifyTranslation(translation: Object) {
     await this.actions.verifyTranslation(this.contactDiv, translation);
+  }
+
+  async expectErrors(errors: ErrorKey[]) {
+    for (const key of errors) {
+      await expect(this.errorsMap[key]).toBeVisible();
+    }
   }
 }

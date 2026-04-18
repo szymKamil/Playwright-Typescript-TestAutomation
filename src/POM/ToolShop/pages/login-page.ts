@@ -1,5 +1,9 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 import { Actions } from "src/_Tools/Actions";
+
+
+type ErrorKey = keyof SignIn["errorsMap"];
+
 
 export class SignIn {
   private readonly page: Page;
@@ -11,6 +15,8 @@ export class SignIn {
   readonly loginBtn: Locator;
   readonly registerLink: Locator;
   readonly forgotPassword: Locator;
+  readonly errorsMap;
+
 
   constructor(page: Page) {
     this.page = page;
@@ -24,6 +30,11 @@ export class SignIn {
     this.loginBtn = page.getByRole("button", { name: "Login" });
     this.registerLink = page.locator('[data-test="register-link"]');
     this.forgotPassword = page.locator('[data-test="forgot-password-link"]');
+     //Errors
+    this.errorsMap = {
+      emailError: page.getByText("Email is required"),
+      passwordError: page.getByText("Password is required"),
+    }
   }
 
   public async goto(){
@@ -52,8 +63,14 @@ export class SignIn {
   }
 
 
+
   async goToRegistration(){
     await this.registerLink.click();
   }
 
+  async expectErrors(errors: ErrorKey[]){
+    for (const key of errors) {
+      await expect(this.errorsMap[key]).toBeVisible();
+    }
+  }
 }

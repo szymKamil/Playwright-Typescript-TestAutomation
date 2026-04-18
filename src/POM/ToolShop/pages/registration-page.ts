@@ -35,6 +35,8 @@ export class Registartion {
   readonly passwordStrengthMeter: Locator;
   readonly registerBtn: Locator;
 
+
+
   constructor(page: Page) {
     this.actions = new Actions(page);
     this.firstNameInput = page.getByRole("textbox", { name: "First name" });
@@ -56,10 +58,10 @@ export class Registartion {
     this.passwordHint = page.locator("#passwordHelp");
     this.passwordStrengthMeter = page.locator("div.password-strength.mt-2");
     this.registerBtn = page.getByRole("button", { name: "Register" });
+   
   }
 
 
-  
 
   public async fillRegistrationForm(data: RegistrationForm) {
       await this.actions.insertText(this.firstNameInput, data.firstName);
