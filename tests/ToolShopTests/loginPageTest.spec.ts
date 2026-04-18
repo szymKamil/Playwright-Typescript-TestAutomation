@@ -3,7 +3,9 @@ import * as constants from "../../src/POM/ToolShop/utils/constans";
 import { RegistrationForm } from "src/POM/ToolShop/pages/registration-page";
 import { faker } from "@faker-js/faker/locale/en";
 import { expect } from "@playwright/test";
-import { PassThrough } from "node:stream";
+
+//test.use({ launchOptions: {slowMo: 500}});
+
 
 test("Verify login form elements", async ({ main, login: signIn }) => {
   await main.navBar.singIn();
@@ -39,9 +41,6 @@ test.describe("Log in  as admin using API", () => {
   });
 });
 
-const testEmail = faker.internet.email();
-const testPassword = faker.internet.password() + "@#$";
-
 const user: RegistrationForm = {
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),
@@ -52,29 +51,31 @@ const user: RegistrationForm = {
   state: faker.location.state(),
   country: "Poland",
   phone: "563563256",
-  email: testEmail,
-  password: testPassword,
+  email: faker.internet.email(),
+  password: faker.internet.password() + "@#$",
 };
 
-test("Registration test", async ({
-  login,
-  registration,
-  request,
-  myAccount,
-}) => {
-  await login.goto();
-  await login.goToRegistration();
-  console.log(testEmail, testPassword);
-  await registration.fillRegistrationForm(user);
-  await expect(async () => {
-    const response = await request.post("/users/login", {
-      data: {
-        email: testEmail,
-        password: testPassword,
-      },
-    });
-    expect(response.status()).toBe(200);
-  }).toPass({ timeout: 10000, intervals: [20000] });
-  //await login.pressLoginButton();
-  await login.logIn(testEmail, testPassword);
+test.describe("Registration test with slowed input", () => {
+  test("Registration test", async ({
+    login,
+    registration,
+    request,
+    myAccount,
+  }) => {
+    await login.goto();
+    await login.goToRegistration();
+    console.log(user.email, user.password);
+    await registration.fillRegistrationForm(user);
+    await expect(async () => {
+      const response = await request.post("/users/login", {
+        data: {
+          email: user.email,
+          password: user.password,
+        },
+      });
+      expect(response.status()).toBe(200);
+    }).toPass({ timeout: 20000, intervals: [1000] });
+    await login.verifyLoginFormElements();
+    await login.logIn(user.email, user.password);
+  });
 });
