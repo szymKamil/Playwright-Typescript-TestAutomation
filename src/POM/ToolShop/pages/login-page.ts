@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { Actions } from "src/_Tools/Actions";
+import { RegistrationForm } from "./registration-page";
 
 export class SignIn {
   private readonly page: Page;
@@ -38,11 +39,21 @@ export class SignIn {
     await this.loginBtn.waitFor({ state: "visible" });
     await this.registerLink.waitFor({ state: "visible" });
     await this.forgotPassword.waitFor({ state: "visible" });
-  }
+  };
 
   async logIn(email: string, password: string) {
-      await this.actions.insertText(this.emailAdressInput, email);
-      await this.actions.insertText(this.passwordInput, password);
+      await this.actions.typeText(this.emailAdressInput, email);
+      await this.actions.typeText(this.passwordInput, password);
       await this.loginBtn.click();
+  };
+
+  async pressLoginButton(){
+    await this.loginBtn.click();
   }
+
+
+  async goToRegistration(){
+    await this.registerLink.click();
+  }
+
 }

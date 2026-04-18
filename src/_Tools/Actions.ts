@@ -22,6 +22,19 @@ export class Actions {
     expect(await locator.inputValue()).toBe(input.toString());
   }
 
+  async typeText(locator: Locator, input: string | number, enter?: boolean) {
+    await expect(locator).toBeVisible();
+    if (typeof input === "string") {
+      await locator.pressSequentially(input);
+    } else if (typeof input === "number") {
+      await locator.pressSequentially(input.toString());
+    }
+    if (enter) {
+      await locator.press("Enter");
+    }
+    expect(await locator.inputValue()).toBe(input.toString());
+  }
+
   async selectOption(locator: Locator, text: string): Promise<void> {
     await expect(locator).toBeVisible();
     await locator.selectOption(text);

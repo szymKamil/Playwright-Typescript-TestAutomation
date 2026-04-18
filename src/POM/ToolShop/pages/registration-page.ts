@@ -1,6 +1,24 @@
+import { th } from "@faker-js/faker/.";
 import { Locator, Page } from "@playwright/test";
+import { Actions } from "src/_Tools/Actions";
+
+
+export interface RegistrationForm {
+    firstName: string;
+    lastName: string;
+    birthDate: string;
+    street: string;
+    postalCode: string;
+    city: string;
+    state: string;
+    country: string;
+    phone: string;
+    email: string;
+    password: string;
+  }
 
 export class Registartion {
+  readonly actions: Actions;
   readonly firstNameInput: Locator;
   readonly lastNameInput: Locator;
   readonly dateOfBirthInput: Locator;
@@ -18,6 +36,7 @@ export class Registartion {
   readonly registerBtn: Locator;
 
   constructor(page: Page) {
+    this.actions = new Actions(page);
     this.firstNameInput = page.getByRole("textbox", { name: "First name" });
     this.lastNameInput = page.getByRole("textbox", { name: "Last name" });
     this.dateOfBirthInput = page.getByRole("textbox", {
@@ -38,4 +57,25 @@ export class Registartion {
     this.passwordStrengthMeter = page.locator("div.password-strength.mt-2");
     this.registerBtn = page.getByRole("button", { name: "Register" });
   }
-}
+
+
+  
+
+  public async fillRegistrationForm(data: RegistrationForm) {
+      await this.actions.insertText(this.firstNameInput, data.firstName);
+      await this.actions.insertText(this.lastNameInput, data.lastName);
+      await this.actions.insertText(this.dateOfBirthInput, data.birthDate);
+      await this.actions.insertText(this.streetInput, data.street);
+      await this.actions.insertText(this.postalCodeInput, data.postalCode);
+      await this.actions.insertText(this.cityInput, data.city);
+      await this.actions.insertText(this.stateInput, data.state);
+      await this.actions.selectOption(this.countryInput, data.country);
+      await this.countryInput.click();
+      await this.countryInput.click();
+      await this.actions.insertText(this.phoneInput, data.phone);
+      await this.actions.insertText(this.emailAdressInput, data.email);
+      await this.actions.insertText(this.passwordInput, data.password);
+      await this.registerBtn.click();
+  }
+
+};

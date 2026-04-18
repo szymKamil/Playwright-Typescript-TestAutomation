@@ -7,6 +7,7 @@ import { MyAccountPage } from "src/POM/ToolShop/pages/my-account-page";
 import { SignIn } from "src/POM/ToolShop/pages/login-page";
 import { ProductCard } from "src/POM/ToolShop/components/product-card";
 import { RentalPage } from "src/POM/ToolShop/pages/rentals-page";
+import { Registartion } from "src/POM/ToolShop/pages/registration-page";
 
 type BaseFixtures = {
   main: Main;
@@ -17,6 +18,7 @@ type BaseFixtures = {
   dashboard: DashboardPage;
   myAccount: MyAccountPage;
   productCard: ProductCard;
+  registration: Registartion;
 };
 
 export const test = base.extend<BaseFixtures>({
@@ -49,4 +51,7 @@ export const test = base.extend<BaseFixtures>({
   productCard: async ({ page }, use) => {
     await use(new ProductCard(page));
   },
+  registration: async({page}, use) => {
+    await use(new Registartion(page));
+  }
 });
