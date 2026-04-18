@@ -34,6 +34,7 @@ export class NavBarComponent {
   readonly logoImg: Locator;
   readonly bannerImg: Locator;
   readonly loggedUserMenu: Locator;
+  readonly cartIcon: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -52,6 +53,7 @@ export class NavBarComponent {
     });
     this.bannerImg = page.getByRole("img", { name: "Banner" });
     this.loggedUserMenu = page.locator("#menu");
+    this.cartIcon = page.getByRole('menuitem', {name: 'cart'});
   }
 
   public async home(): Promise<void> {
@@ -71,6 +73,11 @@ export class NavBarComponent {
 
   public async changeLanguage(language: Languages) {
     await this.localeBtn.selectOption(language);
+  }
+
+  public async openCart() {
+    await expect(this.cartIcon).toBeVisible();
+    await this.cartIcon.click();
   }
 
   public async pickCategory(option: CategoriesOptions): Promise<void> {
