@@ -23,7 +23,7 @@ export class Actions {
   }
 
   async typeText(locator: Locator, input: string | number, enter?: boolean) {
-    await expect(locator).toBeVisible();
+    await locator.waitFor({ state: 'visible' });
     if (typeof input === "string") {
       await locator.pressSequentially(input);
     } else if (typeof input === "number") {
