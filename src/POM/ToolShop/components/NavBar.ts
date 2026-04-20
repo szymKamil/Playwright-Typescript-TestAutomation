@@ -3,6 +3,7 @@ import * as constants from "../utils/constans";
 import { SignIn } from "../pages/login-page";
 import { Contact } from "../pages/contact-page";
 import { Actions } from "src/_Tools/Actions";
+import { error } from "node:console";
 
 export enum CategoriesOptions {
   HandTools = "Hand Tools",
@@ -53,7 +54,7 @@ export class NavBarComponent {
     });
     this.bannerImg = page.getByRole("img", { name: "Banner" });
     this.loggedUserMenu = page.locator("#menu");
-    this.cartIcon = page.getByRole('menuitem', {name: 'cart'});
+    this.cartIcon = page.getByRole("menuitem", { name: "cart" });
   }
 
   public async home(): Promise<void> {
@@ -76,8 +77,12 @@ export class NavBarComponent {
   }
 
   public async openCart() {
-    await expect(this.cartIcon).toBeVisible();
-    await this.cartIcon.click();
+    try {
+      await expect(this.cartIcon).toBeVisible();
+      await this.cartIcon.click();
+    } catch {
+      throw error("Cart icon is not visible!");
+    }
   }
 
   public async pickCategory(option: CategoriesOptions): Promise<void> {

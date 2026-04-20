@@ -5,15 +5,11 @@ import {
   DialgBoxesPage,
 } from "../../src/POM/BoniGarciaTestPage/pages/DialogBoxesPage";
 
-test.beforeEach(async ({ mainPage }) => {
-  await mainPage.openMainPage();
-});
 
-test("Dialog boxex page test", async ({ page }) => {
-  const mainPage = new MainPage(page);
+
+test("Dialog boxex page test", async ({ mainPage, dialogBoxesPage }) => {
   await mainPage.openMainPage();
   await mainPage.openPage("Dialog boxes");
-  const dialogBoxesPage = new DialgBoxesPage(page);
   await dialogBoxesPage.launchAlert();
   await dialogBoxesPage.launchConfirm(AlertParameter.Accept);
   await dialogBoxesPage.launchPromt(

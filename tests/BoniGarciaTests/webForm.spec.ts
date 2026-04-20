@@ -1,14 +1,10 @@
 import { fixture as test } from "./Fixture/boniGarciaFixture";
-import WebForm from "../../src/POM/BoniGarciaTestPage/pages/WebFormPage";
 
-test.beforeEach(async ({ mainPage }) => {
-  await mainPage.openMainPage();
-});
+
 
 test.describe("Test is validating main elements of Web Form Page", () => {
-  test("Web form test", async ({ mainPage, page }) => {
+  test("Web form test", async ({ mainPage, webForm }) => {
     await mainPage.openPage("Web form");
-    const webForm = new WebForm(page);
     //TODO: Poprawka w arialabel
     //await webForm.verifyWebFormPageElements();
     await webForm.fillTextInput();

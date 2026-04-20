@@ -56,8 +56,8 @@ export const test = base.extend<BaseFixtures>({
   registration: async({page}, use) => {
     await use(new Registartion(page));
   },
-  cart: async({page}, use => {
+  cart: async({page}, use) => {
     await use(new Cart(page));
-  }),
+  },
   
 });

@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
-import { Actions } from "../../../_Tools/Actions.ts";
+import { Actions } from "../../../_Tools/Actions";
 
 enum CalcBtns {
   "+" = "+",
@@ -14,8 +14,8 @@ export class RandomCalculatorPage extends MainPage {
   private readonly correctResultConfig: Locator;
   private readonly numOfRetries: Locator;
   private readonly calcBtn: Locator;
-  private readonly actions: Actions;
   private readonly screen: Locator;
+  readonly actions: Actions;
 
   constructor(page: Page) {
     super(page);
@@ -26,12 +26,24 @@ export class RandomCalculatorPage extends MainPage {
     this.screen = page.locator("div.screen");
   }
 
+  async goto(){
+    await this.page.goto('random-calculator.html')
+  }
+
   async setCorrectResultPercentage(input: number | string) {
-    await this.actions.sendTextToInput(this.correctResultConfig, input);
+    await this.actions.insertText(this.correctResultConfig, input);
+  }
+
+  async verifyCorrectResultPrecentageInput(input: number | string){
+    await this.actions.verifyInput(this.correctResultConfig, input);
   }
 
   async setRetries(input: number | string) {
-    await this.actions.sendTextToInput(this.numOfRetries, input);
+    await this.actions.insertText(this.numOfRetries, input);
+  }
+
+  async verifyCInsertedNumOfRetries(input: number | string){
+    await this.actions.verifyInput(this.numOfRetries, input);
   }
 
   async sendMathOperation(calculation: string) {

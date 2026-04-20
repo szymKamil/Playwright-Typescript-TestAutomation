@@ -22,6 +22,7 @@ export class Actions {
     expect(await locator.inputValue()).toBe(input.toString());
   }
 
+
   async typeText(locator: Locator, input: string | number, enter?: boolean) {
     await locator.waitFor({ state: 'visible' });
     if (typeof input === "string") {
@@ -119,6 +120,11 @@ export class Actions {
     } else {
       await expect(locator).toContainText(value);
     }
+  } 
   }
+
+  async verifyInput(locator: Locator, input: string | number){
+    await expect((await locator.inputValue()).toString()).toEqual(input.toString());
   }
+
 }

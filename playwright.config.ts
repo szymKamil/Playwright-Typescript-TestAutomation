@@ -30,8 +30,7 @@ export default defineConfig({
   reporter: "html",
   snapshotDir: "./__snapshots",
   updateSnapshots: "missing",
-  snapshotPathTemplate:
-    "{snapshotDir}/{projectName}/{testFilePath}/{arg}{ext}",
+  snapshotPathTemplate: "{snapshotDir}/{projectName}/{testFilePath}/{arg}{ext}",
   expect: {
     toMatchAriaSnapshot: {
       pathTemplate:
@@ -64,7 +63,7 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         baseURL: BONIGARCIA_URL,
       },
-      testDir: "./tests/ToolShopTests",
+      testDir: "./tests/BoniGarciaTests",
     },
 
     // {

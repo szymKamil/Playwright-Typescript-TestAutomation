@@ -2,13 +2,9 @@ import { fixture as test } from "./Fixture/boniGarciaFixture";
 import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
 import { WebStoragePage } from "../../src/POM/BoniGarciaTestPage/pages/WebStoragePage";
 
-test.beforeEach(async ({ mainPage }) => {
-  await mainPage.openMainPage();
-});
 
-test("Web storage page test", async ({ mainPage, page }) => {
+test("Web storage page test", async ({ mainPage, webStorage }) => {
   await mainPage.openMainPage();
-  const webStorage = new WebStoragePage(page);
   await webStorage.modifySessionStorage(
     { key: "grażyna", value: "kowalska" },
     { key: "łukasz", value: "zboralski" },

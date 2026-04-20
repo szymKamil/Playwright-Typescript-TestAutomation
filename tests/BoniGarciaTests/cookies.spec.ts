@@ -1,14 +1,9 @@
 import { fixture as test } from "./Fixture/boniGarciaFixture";
-import { CookiesPage } from "../../src/POM/BoniGarciaTestPage/pages/CookiesPage";
 
-test.beforeEach(async ({ mainPage }) => {
-  await mainPage.openMainPage();
-});
 
-test("Cookies test", async ({ mainPage, page }) => {
+test("Cookies test", async ({ mainPage, cookiesPage }) => {
   await mainPage.openMainPage();
   await mainPage.openPage("Cookies");
-  const cookiesPage = new CookiesPage(page);
   await cookiesPage.displayCookies();
   await cookiesPage.printCookiesInfo();
   await cookiesPage.changeCookie(
