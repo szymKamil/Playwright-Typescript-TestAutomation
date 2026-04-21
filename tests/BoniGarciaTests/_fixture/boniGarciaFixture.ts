@@ -23,6 +23,7 @@ import { ShadowDOM } from "src/POM/BoniGarciaTestPage/pages/ShadowDOM";
 import { SlowCalculator } from "src/POM/BoniGarciaTestPage/pages/SlowCalculator";
 import WebForm from "src/POM/BoniGarciaTestPage/pages/WebFormPage";
 import { WebStoragePage } from "src/POM/BoniGarciaTestPage/pages/WebStoragePage";
+import { NotificationPage } from "src/POM/BoniGarciaTestPage/pages/NotificationPage";
 
 type BoniGarciaPages = {
   mainPage: MainPage;
@@ -41,6 +42,7 @@ type BoniGarciaPages = {
   loadingImagesPage: LoadingImagesPage;
   loginPage: LoginFormPage;
   longPage: LongPage;
+  notificationPage: NotificationPage;
   userMediaPage: UserMediaPage;
   mouseOverPage: MouseOverPage;
   multiLang: Multilanguage;
@@ -123,6 +125,9 @@ export const fixture = test.extend<BoniGarciaPages>({
   },
   webStorage: async ({ page }, use) => {
     await use(new WebStoragePage(page));
+  },
+  notificationPage: async ({ page }, use) => {
+    await use(new NotificationPage(page));
   },
 });
 

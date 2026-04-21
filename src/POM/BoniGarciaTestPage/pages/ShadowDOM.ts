@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 import MainPage from "./MainPage";
 import { Logger } from "../../../_Tools/Logger";
 
@@ -16,5 +16,9 @@ export class ShadowDOM extends MainPage {
       console.log(`Text from Shadow DOM: ${text}`);
     });
     return text || "Error: Text content is null";
+  }
+
+  async verifyShadowText(text: string) {
+    await expect(this.shadowDOMparagraph).toHaveText(text);
   }
 }

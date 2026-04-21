@@ -1,12 +1,10 @@
-import { NotificationPage } from "../../src/POM/BoniGarciaTestPage/pages/NotificationPage";
 import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
 });
 
-test("Notification page", async ({ mainPage, page }) => {
-  const notificationPage = new NotificationPage(page);
+test("Notification page", async ({ mainPage, notificationPage }) => {
   await notificationPage.mockNotifications();
   await mainPage.openMainPage();
   await mainPage.openPage("Notifications");
