@@ -1,5 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
-
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Multilanguage test", async ({ multiLang, mainPage }) => {
   await mainPage.openPage("Multilanguage");

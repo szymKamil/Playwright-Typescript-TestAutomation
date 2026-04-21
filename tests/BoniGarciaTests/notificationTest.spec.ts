@@ -1,5 +1,5 @@
 import { NotificationPage } from "../../src/POM/BoniGarciaTestPage/pages/NotificationPage";
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();

@@ -22,9 +22,8 @@ export class Actions {
     expect(await locator.inputValue()).toBe(input.toString());
   }
 
-
   async typeText(locator: Locator, input: string | number, enter?: boolean) {
-    await locator.waitFor({ state: 'visible' });
+    await locator.waitFor({ state: "visible" });
     if (typeof input === "string") {
       await locator.selectText();
       await locator.pressSequentially(input);
@@ -111,20 +110,29 @@ export class Actions {
     }
   }
 
-  async verifyTranslation(locator: Locator, translation: Object){
+  async verifyTranslation(locator: Locator, translation: Object) {
     for (const value of Object.values(translation)) {
-    if (Array.isArray(value)) {
-      for (const text of value) {
-        await expect(locator).toContainText(text);
+      if (Array.isArray(value)) {
+        for (const text of value) {
+          await expect(locator).toContainText(text);
+        }
+      } else {
+        await expect(locator).toContainText(value);
       }
-    } else {
-      await expect(locator).toContainText(value);
     }
-  } 
+  }
+  async verifyInput(locator: Locator, input: string | number) {
+    await expect((await locator.inputValue()).toString()).toEqual(
+      input.toString(),
+    );
   }
 
-  async verifyInput(locator: Locator, input: string | number){
-    await expect((await locator.inputValue()).toString()).toEqual(input.toString());
+  async verifyCheckbox(locator: Locator, checked?: boolean) {
+    if (checked) {
+      await expect(locator).toBeChecked();
+    } else {
+      await expect(locator).not.toBeChecked();
+    }
   }
-
+  
 }

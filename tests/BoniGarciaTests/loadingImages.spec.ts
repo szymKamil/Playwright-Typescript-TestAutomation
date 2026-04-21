@@ -1,5 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
-
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Wait for load images test", async ({ mainPage, loadingImagesPage }) => {
   await mainPage.openMainPage();

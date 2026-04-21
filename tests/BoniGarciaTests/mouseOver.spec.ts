@@ -1,5 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
-
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Mouse over page test", async ({ mainPage, mouseOverPage }) => {
   await mainPage.openMainPage();

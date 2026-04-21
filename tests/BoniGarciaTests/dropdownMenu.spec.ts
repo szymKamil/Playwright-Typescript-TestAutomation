@@ -1,4 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 import { DropdownType } from "../../src/POM/BoniGarciaTestPage/pages/DropdownMenuPage";
 
 test("Drodpown page test", async ({ mainPage, dropdownPage }) => {

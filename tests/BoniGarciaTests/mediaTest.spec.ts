@@ -1,5 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
-
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Media playwer test", async ({ mainPage, userMediaPage }) => {
   await mainPage.openPage("Get user media");

@@ -1,11 +1,9 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 import MainPage from "../../src/POM/BoniGarciaTestPage/pages/MainPage";
 import {
   AlertParameter,
   DialgBoxesPage,
 } from "../../src/POM/BoniGarciaTestPage/pages/DialogBoxesPage";
-
-
 
 test("Dialog boxex page test", async ({ mainPage, dialogBoxesPage }) => {
   await mainPage.openMainPage();

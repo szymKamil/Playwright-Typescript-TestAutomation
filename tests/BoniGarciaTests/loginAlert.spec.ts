@@ -1,4 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test.describe("Test is validating sucess and failed login in to page", () => {
   test("Failed login first", async ({ mainPage, loginPage }) => {

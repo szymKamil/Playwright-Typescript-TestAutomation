@@ -1,6 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
-
-
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Download file test", async ({ mainPage, downloadFiles }) => {
   await mainPage.openMainPage();

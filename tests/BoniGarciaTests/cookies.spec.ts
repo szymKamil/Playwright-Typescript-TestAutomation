@@ -1,5 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
-
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Cookies test", async ({ mainPage, cookiesPage }) => {
   await mainPage.openMainPage();

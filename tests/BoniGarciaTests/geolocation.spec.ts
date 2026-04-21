@@ -1,4 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test.use({
   geolocation: { longitude: 99.99, latitude: 66.66 },

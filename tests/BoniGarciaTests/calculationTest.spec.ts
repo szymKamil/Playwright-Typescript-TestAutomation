@@ -1,4 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();
@@ -17,4 +17,6 @@ test("Calculation page test", async ({ randomCalcPage }) => {
     await randomCalcPage.sendMathOperation("24/2*4=");
     await randomCalcPage.sendMathOperation("90/9=");
   }
+
+  //TODO: Metoda która losuje liczbę cyfr, losuje znaki arytmetycne, i oblicza wynik i porównuje go z kalkulatorem, jeśli jest błąd, to dorzuca do licznika ++, a następnie oblicza % poprawności i porównuje go z wstawionym w kalulator inputem dla % poprawnych
 });

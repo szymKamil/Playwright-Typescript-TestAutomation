@@ -1,5 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
-
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Frame page test", async ({ mainPage, framesPage }) => {
   await mainPage.openMainPage();

@@ -19,6 +19,10 @@ export default class MainPage {
     this.subPageBtn = page.locator("a.btn.btn-outline-primary.mb-2");
   }
 
+  async goto(){
+    await this.page.goto('');
+  }
+
   async verifyMainPageElements(): Promise<void> {
     await Logger.logStep("Im verify elements on page", async () => {
       await expect(this.mainHeader).toBeVisible();

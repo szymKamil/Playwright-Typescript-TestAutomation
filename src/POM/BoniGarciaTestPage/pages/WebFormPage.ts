@@ -29,6 +29,7 @@ export default class WebForm {
   private readonly datePicker: Locator;
   private readonly rangePicker: Locator;
   private readonly submitBtn: Locator;
+  private readonly submitedMsg: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -49,6 +50,7 @@ export default class WebForm {
       name: "Dropdown (datalist)",
     });
     this.fileInput = page.getByRole("button", { name: "File input" });
+    //this.fileInput = page.locator('input[type="file"]');
     this.checkedCheckbox = page.locator("#my-check-1");
     this.defaultCheckbox = page.locator("#my-check-2");
     this.checkedRadio = page.locator("#my-radio-1");
@@ -57,97 +59,36 @@ export default class WebForm {
     this.datePicker = page.getByRole("textbox", { name: "Date picker" });
     this.rangePicker = page.getByRole("slider", { name: "Example range" });
     this.submitBtn = page.getByRole("button", { name: "Submit" });
+    this.submitedMsg = page.getByRole("heading", { name: "Form submitted" });
   }
 
-  async verifyWebFormPageElements(): Promise<void> {
-    await Logger.logStep("Verify web form page elements", async () => {
-      await expect(this.mainHeader).toBeVisible();
-      await expect(this.logoImg).toBeVisible();
-      await expect(this.pageTitle).toBeVisible();
-      await expect(this.container1).toMatchAriaSnapshot(`
-    - text: Text input
-    - textbox 'Text input'
-    - text: Password
-    - textbox 'Password'
-    - text: Textarea
-    - textbox 'Textarea'
-    - text: Disabled input
-    - textbox 'Disabled input' [disabled]
-    - text: Readonly input
-    - textbox 'Readonly input'
-    - link 'Return to index':
-    - /url: ./index.html`);
-      await expect(this.container2).toMatchAriaSnapshot(`
-- text: Dropdown (select)
-- combobox 'Dropdown (select)':
-  - option 'Open this select menu' [selected]
-  - option 'One'
-  - option 'Two'
-  - option 'Three'
-- text: Dropdown (datalist)
-- combobox 'Dropdown (datalist)'
-- text: File input
-- button 'File input'
-- checkbox 'Checked checkbox' [checked]
-- text: Checked checkbox
-- checkbox 'Default checkbox'
-- text: Default checkbox
-- radio 'Checked radio' [checked]
-- text: Checked radio
-- radio 'Default radio'
-- text: Default radio
-- button 'Submit'
-        `);
-      await expect(this.container3).toMatchAriaSnapshot(`
-- text: Color picker
-- textbox 'Color picker': '#563d7c'
-- text: Date picker
-- textbox 'Date picker'
-- text: Example range
-- slider 'Example range': '5'
-        `);
-    });
-  }
-
-  async fillTextInput(input?: string) {
+  async fillTextInput(input: string) {
     await Logger.logStep("Fill text input", async () => {
-      await this.actions.sendTextToInput(
-        this.textInput,
-        input ?? faker.string.sample({ min: 4, max: 10 }),
-      );
+      await this.actions.typeText(this.textInput, input);
     });
   }
 
-  async fillPassword(input?: string) {
+  async fillPassword(input: string) {
     await Logger.logStep("Fill password", async () => {
-      await this.actions.sendTextToInput(
-        this.passwordInput,
-        input ?? faker.string.sample({ min: 4, max: 10 }),
-      );
+      await this.actions.typeText(this.passwordInput, input);
     });
   }
 
-  async fillTextArea(input?: string) {
+  async fillTextArea(input: string) {
     await Logger.logStep("Fill textarea", async () => {
-      await this.actions.sendTextToInput(
-        this.textArea,
-        input ?? faker.string.sample({ min: 15, max: 25 }),
-      );
+      await this.actions.typeText(this.textArea, input);
     });
   }
 
-  async selectFromDropdown(input?: string) {
+  async selectFromDropdown(input: string) {
     await Logger.logStep("Select option from dropdown", async () => {
       await this.actions.selectOption(this.dropdownSelect, input ?? "One");
     });
   }
 
-  async selectFromDatalist(input?: string) {
+  async selectFromDatalist(input: string) {
     await Logger.logStep("Select value from datalist", async () => {
-      await this.actions.sendTextToInput(
-        this.dropdownDatalist,
-        input ?? "New York",
-      );
+      await this.actions.typeText(this.dropdownDatalist, input);
     });
   }
 
@@ -155,7 +96,7 @@ export default class WebForm {
     await Logger.logStep("Upload file", async () => {
       await this.actions.sendFile(
         this.fileInput,
-        filePath ?? path.join(process.cwd(), "/resources/f-vat_2011.pdf"),
+        filePath ?? path.join("/resources/f-vat_2011.pdf"),
       );
     });
   }
@@ -180,22 +121,21 @@ export default class WebForm {
     });
   }
 
-  async pickColor(color?: string) {
+  async pickColor(color: string) {
     await Logger.logStep("Pick color", async () => {
-      await this.actions.sendTextToInput(this.colorPicker, color ?? "#0aca0a");
+      await this.actions.insertText(this.colorPicker, color);
     });
   }
 
-  async pickDate(date?: string) {
+  async pickDate(date: string) {
     await Logger.logStep("Pick date", async () => {
-      const dateInput: string = date ?? new Date(Date.now()).toISOString();
-      await this.actions.sendTextToInput(this.datePicker, dateInput);
+      await this.actions.typeText(this.datePicker, date);
     });
   }
 
-  async pickRange(range?: number) {
+  async pickRange(range: number) {
     await Logger.logStep("Pick range", async () => {
-      await this.actions.rangeManipulator(this.rangePicker, range ?? 1);
+      await this.actions.rangeManipulator(this.rangePicker, range);
     });
   }
 
@@ -203,6 +143,87 @@ export default class WebForm {
     await Logger.logStep("Submit web form", async () => {
       await this.submitBtn.click();
       await expect(this.page.getByText("Form submitted")).toBeVisible();
+    });
+  }
+  // -------------- Asertions ----------
+
+  async verifyTextInput(input: string) {
+    await Logger.logStep("Veryfying text input", async () => {
+      await this.actions.verifyInput(this.textInput, input);
+    });
+  }
+  async verifyPasswordInput(input: string) {
+    await Logger.logStep("Veryfying password input value", async () => {
+      await this.actions.verifyInput(this.passwordInput, input);
+    });
+  }
+  async verifyTextAreaInput(input: string) {
+    await Logger.logStep("Veryfying text area input", async () => {
+      await this.actions.verifyInput(this.textArea, input);
+    });
+  }
+  async verifyDropdownOption(input: string) {
+    await Logger.logStep("Veryfying dropdown picked value", async () => {
+      await expect(this.dropdownSelect).toHaveValue(input);
+    });
+  }
+  async verifyDataListOption(input: string) {
+    await Logger.logStep("Veryfying data list option", async () => {
+      await this.actions.verifyInput(this.dropdownDatalist, input);
+    });
+  }
+  async verifyFileIsUploaded(file?: string) {
+    await Logger.logStep("Veryfying file upload input", async () => {
+      if (file) {
+        await expect(this.fileInput).toHaveValue(file);
+      } else {
+        await expect(this.fileInput).toHaveValue(/f-vat_2011\.pdf$/);
+      }
+    });
+  }
+
+  async verifyCheckboxChecked(checkbox: number) {
+    await Logger.logStep("Veryfying slider value", async () => {
+      if (checkbox == 1) {
+        await this.actions.verifyCheckbox(this.checkedCheckbox, true);
+        await this.actions.verifyCheckbox(this.defaultCheckbox, false);
+      } else {
+        await this.actions.verifyCheckbox(this.checkedCheckbox, false);
+        await this.actions.verifyCheckbox(this.defaultCheckbox, true);
+      }
+    });
+  }
+
+  async verifyRadioChecked(checkbox: number) {
+    await Logger.logStep("Veryfying radio buttons checked", async () => {
+      if (checkbox == 1) {
+        await this.actions.verifyCheckbox(this.checkedRadio, true);
+        await this.actions.verifyCheckbox(this.defaultRadio, false);
+      } else {
+        await this.actions.verifyCheckbox(this.checkedRadio, false);
+        await this.actions.verifyCheckbox(this.defaultRadio, true);
+      }
+    });
+  }
+  async verifyColor(color: string) {
+    await Logger.logStep("Veryfying color input", async () => {
+      await expect(this.colorPicker).toHaveValue(color);
+    });
+  }
+
+  async verifyDate(date: string) {
+    await Logger.logStep("Veryfying date input", async () => {
+      await expect(this.datePicker).toHaveValue(date);
+    });
+  }
+  async verifySliderValue(num: number) {
+    await Logger.logStep("Veryfying slider value", async () => {
+      await expect(this.rangePicker).toHaveValue(num.toString());
+    });
+  }
+  async verifySucessOfSubmitForm() {
+    await Logger.logStep("Veryfying form is submited sucessfully", async () => {
+      await expect(this.submitedMsg).toBeVisible();
     });
   }
 }

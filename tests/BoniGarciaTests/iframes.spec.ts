@@ -1,4 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test.beforeEach(async ({ mainPage }) => {
   await mainPage.openMainPage();

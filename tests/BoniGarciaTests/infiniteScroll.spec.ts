@@ -1,4 +1,4 @@
-import { fixture as test } from "./Fixture/boniGarciaFixture";
+import { fixture as test } from "./_fixture/boniGarciaFixture";
 
 test("Infinite scroll test", async ({ mainPage, infiniteScroll }) => {
   await mainPage.openMainPage();
