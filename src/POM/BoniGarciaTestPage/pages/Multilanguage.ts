@@ -1,7 +1,12 @@
 import { expect, Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
 
-
+export type LanguageData = {
+        homeParagraph: string,
+        contentParagraph: string,
+        aboutPara: string,
+        contactPara: string
+    }
 
 export class Multilanguage extends MainPage{
 
@@ -18,11 +23,19 @@ export class Multilanguage extends MainPage{
         this.contactParagraph = page.locator('li[key="_contact"]');
     }
 
-    public async verifyMultilanguagePage(): Promise<void> {
-        await expect(this.homeParagraph).toHaveText('Inicio');
-        await expect(this.contentParagraph).toHaveText('Contenido');
-        await expect(this.aboutParagraph).toHaveText('Acerca de');
-        await expect(this.contactParagraph).toHaveText('Contacto');
-        console.log('Page properly display spanish translation.')
+  
+
+    public async verifyMultilanguagePage(langTestData: LanguageData): Promise<void> {
+        await expect(this.homeParagraph).toHaveText(langTestData.homeParagraph);
+        await expect(this.contentParagraph).toHaveText(langTestData.contentParagraph);
+        await expect(this.aboutParagraph).toHaveText(langTestData.aboutPara);
+        await expect(this.contactParagraph).toHaveText(langTestData.contactPara);
+        console.log('Page properly display translation.')
+
+        // await expect(this.homeParagraph).toHaveText('Inicio');
+        // await expect(this.contentParagraph).toHaveText('Contenido');
+        // await expect(this.aboutParagraph).toHaveText('Acerca de');
+        // await expect(this.contactParagraph).toHaveText('Contacto');
+        // console.log('Page properly display spanish translation.')
     }
 }
