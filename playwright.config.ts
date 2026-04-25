@@ -42,7 +42,6 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
-
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
   },
@@ -62,6 +61,10 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         baseURL: BONIGARCIA_URL,
+        acceptDownloads: true,
+        launchOptions: {
+          args: ["--disable-features=DownloadBubble"],
+        },
       },
       testDir: "./tests/BoniGarciaTests",
     },

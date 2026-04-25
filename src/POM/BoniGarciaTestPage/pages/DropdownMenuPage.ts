@@ -30,8 +30,8 @@ export class DropdownMenuPage extends MainPage {
     this.dropdownMenu3 = page.locator("#context-menu-3");
   }
 
-  getDropdown(type: DropdownType): Locator {
-    return this[type];
+  getDropdown(dropdownType: DropdownType): Locator {
+    return this[dropdownType];
   }
 
   private async clickByType(type: ClickType): Promise<void> {
@@ -52,17 +52,43 @@ export class DropdownMenuPage extends MainPage {
     dropdown: DropdownType,
     clickType: ClickType = "left",
   ): Promise<void> {
-    await Logger.logStep("Dsiplaying dropdown ${clickType} type", async () => {
+    await Logger.logStep(`Dsiplaying dropdown ${clickType} type`, async () => {
       await expect(this.getDropdown(dropdown)).toBeVisible();
       await this.clickByType(clickType);
-
-      const menuMap = {
-        left: this.dropdownMenu1,
-        right: this.dropdownMenu2,
-        double: this.dropdownMenu3,
-      };
-
-      await expect(menuMap[clickType]).toBeVisible();
     });
+  }
+
+  async verifyDropdownPresent(dropdown: ClickType) {
+    switch (dropdown) {
+      case "left":
+        await Logger.logStep(
+          `Veryfing ${dropdown} type is visible`,
+          async () => {
+            await expect(this.getDropdown(DropdownType.left)).toBeVisible();
+            await this.clickByType(dropdown);
+          },
+        );
+        break;
+      case "right":
+        await Logger.logStep(
+          `Veryfing ${dropdown} type is visible`,
+          async () => {
+            await expect(this.getDropdown(DropdownType.right)).toBeVisible();
+            await this.clickByType(dropdown);
+          },
+        );
+        break;
+      case "double":
+        await Logger.logStep(
+          `Veryfing ${dropdown} type is visible`,
+          async () => {
+            await expect(
+              this.getDropdown(DropdownType.doubleClick),
+            ).toBeVisible();
+            await this.clickByType(dropdown);
+          },
+        );
+        break;
+    }
   }
 }

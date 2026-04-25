@@ -24,7 +24,7 @@ export class DragAndDrop extends MainPage {
       let endingCoords = await this.draggablePanel.boundingBox();
       endingCoords?.x == targetCoords?.x && endingCoords?.y == targetCoords?.y
         ? console.log(
-            "Sucess! Ending coords: " +
+            "Sucess! Ending coords of dragged element: " +
               endingCoords?.x +
               ", " +
               endingCoords?.y,

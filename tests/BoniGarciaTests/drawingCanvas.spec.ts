@@ -10,4 +10,5 @@ test("Draw in canvas page test", async ({ mainPage, drawInCanvasPage }) => {
     { x: -15, y: 30 },
     { x: 20, y: -60 },
   );
+  await drawInCanvasPage.visulatTest();
 });

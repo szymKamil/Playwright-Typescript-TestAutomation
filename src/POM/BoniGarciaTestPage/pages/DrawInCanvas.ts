@@ -36,6 +36,10 @@ export class DrawInCanvas extends MainPage {
       { x: 60, y: -50 },
     );
   }
+
+  async visulatTest() {
+    await this.actions.pageVisualTest("canvas-page");
+  }
 }
 
 type DrawningCoords = Readonly<{
