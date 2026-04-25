@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, FrameLocator, Locator, Page } from "@playwright/test";
 import path from "path";
 import fs from "fs";
 
@@ -9,12 +9,16 @@ export class Actions {
     this.page = page;
   }
 
-  public async getViewport(){
+  public async getScrollPosition(frameLocator?: Locator) {
     await this.page.waitForLoadState("domcontentloaded");
-    return await this.page.evaluate(() => {
-      return window.scrollY;
-    });
+    if (frameLocator) {
+    await frameLocator.waitFor();
+    const elementHandle = await frameLocator.elementHandle();
+    const frame = await elementHandle?.contentFrame();
+    return await frame?.evaluate(() => window.scrollY);
   }
+  return await this.page.evaluate(() => window.scrollY);
+}
 
   async insertText(locator: Locator, input: string | number, enter?: boolean) {
     await expect(locator).toBeVisible();
@@ -141,5 +145,4 @@ export class Actions {
       await expect(locator).not.toBeChecked();
     }
   }
-  
 }

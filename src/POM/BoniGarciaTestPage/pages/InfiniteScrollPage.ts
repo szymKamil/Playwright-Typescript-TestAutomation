@@ -27,7 +27,7 @@ export class InfiniteScrollPage extends MainPage {
     });
   }
 
-  public async getViewport(){
-    await this.actions.getViewport();
+  public async getScrollPos() {
+    await this.actions.getScrollPosition();
   }
 }

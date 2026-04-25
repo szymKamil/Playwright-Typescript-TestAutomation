@@ -18,7 +18,7 @@ export class LongPage extends MainPage {
   }
 
   public async getViewportHeight() {
-    await this.actions.getViewport();
+    await this.actions.getScrollPosition();
   }
 
   public async scrollToBottomParagraph(): Promise<void> {
