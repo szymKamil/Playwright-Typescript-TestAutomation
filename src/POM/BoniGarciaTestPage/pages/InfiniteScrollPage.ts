@@ -26,4 +26,8 @@ export class InfiniteScrollPage extends MainPage {
       }
     });
   }
+
+  public async getViewport(){
+    await this.actions.getViewport();
+  }
 }

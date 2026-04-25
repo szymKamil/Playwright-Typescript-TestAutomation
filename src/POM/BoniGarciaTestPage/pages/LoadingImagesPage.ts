@@ -15,7 +15,7 @@ export class LoadingImagesPage extends MainPage {
     this.landscapeImage = page.locator("#landscape");
   }
 
-  async verifyLoadingImagesPageElements(): Promise<void> {
+  async waitForImgToLoad(): Promise<void> {
     let images = [
       this.compasImage,
       this.calednarImage,

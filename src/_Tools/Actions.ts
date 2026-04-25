@@ -9,6 +9,13 @@ export class Actions {
     this.page = page;
   }
 
+  public async getViewport(){
+    await this.page.waitForLoadState("domcontentloaded");
+    return await this.page.evaluate(() => {
+      return window.scrollY;
+    });
+  }
+
   async insertText(locator: Locator, input: string | number, enter?: boolean) {
     await expect(locator).toBeVisible();
     if (typeof input === "string") {
