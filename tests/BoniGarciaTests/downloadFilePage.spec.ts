@@ -5,5 +5,5 @@ test("Download file test", async ({ mainPage, downloadFiles }) => {
   await mainPage.openPage("Download files");
   const pathForDowFile = await downloadFiles.downloadFile(1);
   //Erorr with saving file 
-  //await downloadFiles.verifyFileExist(pathForDowFile);
+  await downloadFiles.verifyFileExist(pathForDowFile);
 });

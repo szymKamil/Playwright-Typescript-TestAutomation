@@ -31,32 +31,22 @@ export class DownloadFilePage extends MainPage {
       this.seleniumJupLogo,
       this.seleniumJupDoc,
     ];
-    const dir = path.join(process.cwd(), "downloads");
 
-    mkdirSync(dir, { recursive: true });
-
-    const client = await this.page.context().newCDPSession(this.page);
-    await client.send("Browser.setDownloadBehavior", {
-      behavior: "allow",
-      downloadPath: dir,
-      eventsEnabled: true,
-    });
-
-    const downloadEvent = this.page.waitForEvent("download");
-    await Promise.all([buttons[file - 1].click()]);
-    const download = await downloadEvent;
+    const [download] = await Promise.all([
+      this.page.waitForEvent("download"),
+      buttons[file - 1].click(),
+    ]);
 
     const filename = download.suggestedFilename();
     console.log(Logger.getTimestamp() + ` Filename is: ${filename}`);
 
-    //const filePath = path.join(dir, filename);
-    //console.log(filePath);
-    await download.saveAs(`./downloads/${filename}`);
-    //return filePath;
+    const filePath = path.join('./downloads', filename);
+    await download.saveAs(filePath);
+    return filePath;
   }
 
   async verifyFileExist(path: string) {
     await access(path, constants.F_OK);
-    console.log(Logger.getTimestamp, "File is existing");
+    console.log(Logger.getTimestamp(), "File exists");
   }
 }
