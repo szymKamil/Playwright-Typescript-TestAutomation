@@ -1,4 +1,4 @@
-import { BrowserContext, Locator, Page } from "@playwright/test";
+import { BrowserContext, expect, Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
 import { Logger } from "../../../_Tools/Logger";
 
@@ -20,8 +20,12 @@ export class CookiesPage extends MainPage {
     });
   }
 
-  public async printCookiesInfo(): Promise<void> {
+  public async verifyCookies(...cookies: Array<{ name: string; value: string }>): Promise<void> {
     await Logger.logStep("Reading cookies text printed on page", async () => {
+      for (const c of cookies){
+        await expect(this.cookieInfo).toContainText(c.name);
+        await expect(this.cookieInfo).toContainText(c.value);
+      }
       const cookiesText = await this.cookieInfo.textContent();
       console.log(`Cookies info: ${cookiesText}`);
     });

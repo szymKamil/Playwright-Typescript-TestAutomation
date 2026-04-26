@@ -45,7 +45,7 @@ export class DialgBoxesPage extends MainPage {
     this.page.once("dialog", async (alert: any) => {
       console.log("Dialog type:", alert.type());
       console.log("Dialog message:", alert.message());
-      let alertMsg = await alert.message();
+      const alertMsg = await alert.message();
       console.log("Alert message is " + alertMsg);
       if (alertConfig.parameter === "accept" || alertConfig.input) {
         await alert.accept(alertConfig.input);

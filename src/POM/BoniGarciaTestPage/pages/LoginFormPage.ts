@@ -1,6 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
 import MainPage from "./MainPage";
-import { log } from "node:console";
 
 export class LoginFormPage extends MainPage {
   private readonly loginInput: Locator;
